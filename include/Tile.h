@@ -5,16 +5,17 @@
 
 class Tile : public GameObject {
 public:
-	Tile() = default;
-
+    Tile() : GameObject() {};
         // Render the tile on the window
     virtual void draw(sf::RenderWindow& window) { window.draw(GameObject::getSprite()); };
-    static sf::Vector2f getSize() { static sf::Vector2f size{ m_tileWidth, m_tileHeight }; return size; };
+    static sf::Vector2f getSize() {return m_tileSize; };
 
 private:
    static bool m_bool_init;
-   static const int m_tileWidth = 64; // Width of the tile
-   static const int m_tileHeight = 64;
+   static const sf::Vector2f m_tileSize; // Width of the tile
+
 };
 
 bool Tile::m_bool_init = ObjFactory::registerit("Tile", []() -> std::unique_ptr<GameObject> { return std::make_unique<Tile>(); });
+
+const sf::Vector2f Tile::m_tileSize = { 64, 64 };

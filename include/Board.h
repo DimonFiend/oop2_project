@@ -12,6 +12,11 @@ public:
     // Render all tiles on the board
     void draw(sf::RenderWindow& window);
 private:
+    sf::View m_view;
     std::vector<std::unique_ptr<GameObject>> m_tiles; // Vector of tiles to represent the board
-    int boardSize = 8; // Number of tiles in each row and column
+    sf::Vector2f m_boardSize; // Number of tiles in each row and column
+    const int m_tilesCount; // Number of tiles in each row and column
+
+    void setSize();
+    void setView();
 };
