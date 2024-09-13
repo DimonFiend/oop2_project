@@ -34,15 +34,6 @@ void Board::draw(sf::RenderWindow& window) {
 	for (auto& tile : m_tiles) {
 		tile->draw(window);	
 	}
-
-	sf::Texture texture;
-	texture.loadFromFile("Davis.png");
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(16, 6, 77, 80));
-	sprite.setPosition({ 100,100 });
-
-	window.draw(sprite);
 }
 
 void Board::setSize()
