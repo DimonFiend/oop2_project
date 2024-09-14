@@ -1,11 +1,13 @@
 #include "GameController.h"
 #include "Settings.h"
 #include "Board.h"
+#include "GameLevel.h"
+
 GameController::GameController(int w, int h, std::string title) {
 	// Constructor implementation
+	this->setState(std::make_unique<GameLevel>(*this));
 	m_window.create(sf::VideoMode(w, h), title, sf::Style::Close);
 	m_window.setFramerateLimit(60);
-	m_view = m_window.getDefaultView();
 }
 
 void GameController::startGame()
@@ -27,30 +29,18 @@ void GameController::run()
 
 void GameController::update()
 {
-	// Update implementation
+	m_state->update();
 }
 
 void GameController::render()
 {
-	m_window.clear(sf::Color::Blue);
-	Board board;
-	board.draw(m_window);
+	m_window.clear();
+	m_state->draw(m_window);
 	m_window.display();
 }
 
 void GameController::processEvents()
 {
-	//ze po zmani
-	for (auto event = sf::Event{}; m_window.pollEvent(event);)
-	{
-		switch (event.type)
-		{
-		case sf::Event::Closed:
-			m_window.close();
-			break;
-		case sf::Event::KeyPressed:
-			break;
-		}
-	}
+	m_state->processEvents(m_window);
 }
 
