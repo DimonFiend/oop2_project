@@ -11,24 +11,7 @@ class GameLevel : public GameState {
 public:
 	GameLevel(GameController& controller) : GameState(controller) {};
 	virtual ~GameLevel() = default;
-	void draw(sf::RenderWindow& window)
-	{
-		m_board.draw(window);
-	}
-	void update()
-	{
-
-	}
-	void processEvents(sf::RenderWindow& window)
-	{
-		for (auto event = sf::Event{}; window.pollEvent(event);)
-		{
-			switch (event.type)
-			{
-			case sf::Event::Closed:
-				window.close();
-				break;
-			}
-		}
-	}
+	void draw(sf::RenderWindow& window);
+	void update();
+	void processEvents(sf::RenderWindow& window);
 };
