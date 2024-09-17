@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+#include <unordered_map>
 
 enum class TextureID {
 	T_TILE_BROWN,
@@ -17,19 +17,14 @@ public:
 	}
 
 	sf::Font& getFont() { return m_font; }
-	sf::Texture& getTexture(TextureID num) { return m_texture[size_t(num)];}
+	sf::Texture& getTexture(const std::string& type);
 
 private:
-	Resources() {
-		//m_texture.reserve(size_t(TextureID::END));
-		m_texture.resize(size_t(TextureID::END));
-		m_texture[size_t(TextureID::T_TILE_BROWN)].loadFromFile("Tile1.png");
-		m_texture[size_t(TextureID::T_TILE_LIGHT)].loadFromFile("Tile2.png");
-	}
+	Resources();
 
 	Resources(const Resources&) = delete;
 	Resources& operator=(const Resources&) = delete;
 
 	sf::Font m_font;
-	std::vector<sf::Texture> m_texture;
+	std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_texture;
 };

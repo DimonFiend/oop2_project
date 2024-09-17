@@ -3,13 +3,16 @@
 #include <memory>
 #include <map>
 #include "GameObject.h"
-typedef std::map<std::string, std::unique_ptr<GameObject>(*)()> mymap;
+#include <functional>
 
 // ================   class Factory   ============================
 class ObjFactory {
 public:
-	static std::unique_ptr<GameObject> create(const std::string& name);
-	static bool registerit(const std::string& name, std::unique_ptr<GameObject>(*)());
+	using objFunction = std::function<std::unique_ptr<GameObject>(const std::string&, sf::Vector2f&)>;
+	using mymap = std::map<std::string, objFunction>;
+
+	static std::unique_ptr<GameObject> create(const std::string& name,const std::string& type, sf::Vector2f& pos);
+	static bool registerit(const std::string& name, objFunction);
 
 private:
 	static mymap& getMap()
@@ -18,15 +21,3 @@ private:
 		return m_map;
 	}
 };
-
-std::unique_ptr<GameObject> ObjFactory::create(const std::string& name) {
-	auto it = getMap().find(name);
-	if (it == getMap().end())
-		return nullptr;
-	return it->second();
-}
-
-bool ObjFactory::registerit(const std::string& name, std::unique_ptr<GameObject>(*f)()) {
-	getMap().emplace(name, f);
-	return true;
-}

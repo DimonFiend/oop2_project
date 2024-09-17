@@ -1,0 +1,3 @@
+BlueTile Tile1.png
+BrightTile Tile2.png
+InventorySlot Slot.png

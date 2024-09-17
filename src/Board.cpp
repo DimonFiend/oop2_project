@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include "ObjFactory.h"
 #include "Resources.h"
+#include <string>
 
 Board::Board() : m_tilesCount(8) {
 	// Initialize the board with tiles
@@ -11,19 +12,19 @@ Board::Board() : m_tilesCount(8) {
 		for (int j = 0; j < m_tilesCount; j++)
 		{
 			float posX = j * Tile::getSize().x;
-			auto tile = ObjFactory::create("Tile");
-			sf::Texture* texture;
 
-			if((i+j) % 2 == 0)
-				texture = &Resources::Instance().getTexture(TextureID::T_TILE_BROWN);
+			sf::Vector2f pos{ posX, posY };
+			if ((i + j) % 2 == 0)
+			{
+				m_tiles.push_back(std::move(ObjFactory::create("Tile", "BrightTile", pos)));
+			}
 			else
-				texture = &Resources::Instance().getTexture(TextureID::T_TILE_LIGHT);
-
-			tile->setTexture(texture);
-			tile->setPosition(sf::Vector2f{ posX, posY });
-			m_tiles.push_back(std::move(tile));
+			{
+				m_tiles.push_back(std::move(ObjFactory::create("Tile", "BlueTile", pos)));
+			}
 		}
 	}
+
 	setSize();
 	setView();
 }
@@ -31,6 +32,10 @@ Board::Board() : m_tilesCount(8) {
 void Board::draw(sf::RenderWindow& window) {
 	// Render all tiles on the board
 	window.setView(m_view);
+	sf::RectangleShape viewRect(m_view.getSize());
+	viewRect.setPosition(m_view.getCenter() - m_view.getSize() / 2.0f);
+	viewRect.setFillColor(sf::Color::Blue);
+	window.draw(viewRect);
 	for (auto& tile : m_tiles) {
 		tile->draw(window);	
 	}
@@ -38,8 +43,8 @@ void Board::draw(sf::RenderWindow& window) {
 
 void Board::setSize()
 {
-	m_boardSize.x = Tile::getSize().x * m_tilesCount;
-	m_boardSize.y = Tile::getSize().y * m_tilesCount;
+	m_boardSize.x = Tile::getSize().x * (m_tilesCount + 1);
+	m_boardSize.y = Tile::getSize().y * (m_tilesCount + 1);
 }
 
 void Board::setView()

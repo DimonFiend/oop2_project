@@ -5,5 +5,6 @@
 class Heroes : public Creatures {
 public:
 	Heroes() = default;
-	void draw(sf::RenderWindow& window) override {};
+	virtual ~Heroes() = default;
+	void draw(sf::RenderWindow& window) override { (void)window;};
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <string.h>
 #include <vector>
-
+#include <SFML/Graphics.hpp>
 class Heroes;
 class Player
 {
@@ -15,7 +15,7 @@ public:
 	virtual void draw(sf::RenderWindow& window) = 0;
 	virtual void update() = 0;
 
-	void UpdateLives(int lives) { m_lives -= lives };
+	void UpdateLives(int lives) { m_lives -= lives; };
 	int GetLives() const { return m_lives;};
 
 private:

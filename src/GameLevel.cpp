@@ -4,6 +4,7 @@
 void GameLevel::draw(sf::RenderWindow& window)
 {
 	m_board.draw(window);
+	m_player->draw(window);
 }
 
 void GameLevel::update()
