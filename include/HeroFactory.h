@@ -2,17 +2,16 @@
 #include <iostream>
 #include <memory>
 #include <map>
-#include "Tile.h"
+#include "Heroes.h"
 #include <functional>
 
-
 // ================   class Factory   ============================
-class ObjFactory {
+class HeroFactory {
 public:
-	using objFunction = std::function<std::unique_ptr<Tile>(const std::string&, sf::Vector2f&)>;
+	using objFunction = std::function<std::unique_ptr<Heroes>(const std::string&, sf::Vector2f&)>;
 	using mymap = std::map<std::string, objFunction>;
 
-	static std::unique_ptr<Tile> create(const std::string& name,const std::string& type, sf::Vector2f& pos);
+	static std::unique_ptr<Heroes> createHero(const std::string& name, const std::string& type, sf::Vector2f& pos);
 	static bool registerit(const std::string& name, objFunction);
 
 private:

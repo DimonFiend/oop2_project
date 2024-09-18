@@ -4,5 +4,4 @@ class Creatures : public GameObject {
 
 public:
 	
-
 };

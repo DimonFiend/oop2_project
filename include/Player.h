@@ -2,7 +2,8 @@
 #include <string.h>
 #include <vector>
 #include <SFML/Graphics.hpp>
-class Heroes;
+#include "Inventory.h"
+
 class Player
 {
 
@@ -12,14 +13,16 @@ public:
 
 	void SetName(const std::string name) { m_name = name; };
 	const std::string GetName() const { return m_name; };
-	virtual void draw(sf::RenderWindow& window) = 0;
-	virtual void update() = 0;
+	virtual void draw(sf::RenderWindow& window) {m_inventory.draw(window);};
 
 	void UpdateLives(int lives) { m_lives -= lives; };
 	int GetLives() const { return m_lives;};
 
+	void addHero(std::unique_ptr<Heroes> hero);
+	bool hasSpace() const {return !m_inventory.isFull();};
+
 private:
 	std::string m_name;
 	int m_lives;
-	std::vector<std::unique_ptr<Heroes>> m_heroes;
+	Inventory m_inventory;
 };

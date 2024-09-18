@@ -6,11 +6,11 @@ class GameObject
 public:
 	virtual void draw(sf::RenderWindow& window) = 0;
 	virtual ~GameObject() = default;
-	GameObject(const std::string& type, sf::Vector2f& pos);
-
+	bool checkContain(sf::Vector2f point);
+	sf::Vector2f getPosition() const;
+	void setPosition(sf::Vector2f pos);
 protected:
-	sf::Sprite getSprite() { return m_sprite; };
-
+	sf::Sprite& getSprite() { return m_sprite; };
 private:
 	sf::Sprite m_sprite;
 };

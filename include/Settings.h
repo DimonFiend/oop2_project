@@ -14,7 +14,7 @@ public:
 	void setHeight(unsigned int height) { m_height = height; }
 
 private:
-	Settings(unsigned int width = 640, unsigned int height = 800)
+	Settings(unsigned int width = 1024, unsigned int height = 1920)
 		: m_width(width), m_height(height) {};
 
 	Settings(const Settings&) = delete;

@@ -1,11 +1,11 @@
 #pragma once
 #include "ObjFactory.h"
 
-std::unique_ptr<GameObject> ObjFactory::create(const std::string& name, const std::string& type, sf::Vector2f& pos)
+std::unique_ptr<Tile> ObjFactory::create(const std::string& name, const std::string& type, sf::Vector2f& pos)
 {
 	auto it = getMap().find(name);
 	if (it == getMap().end())
-		return nullptr;
+		throw std::invalid_argument("Unknown object type");
 	return it->second(type, pos);
 }
 

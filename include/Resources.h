@@ -3,12 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 
-enum class TextureID {
-	T_TILE_BROWN,
-	T_TILE_LIGHT,
-	END
-};
-
 class Resources {
 public:
 	static Resources& Instance() {
