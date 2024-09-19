@@ -32,7 +32,7 @@ Board::Board() : m_tilesCount(TILES_COUNT), m_tileSize(TILES_SIZE) {
 			}
 			sf::Vector2f pos{ posX, posY };
 			tile->setPosition(pos);
-			m_tiles.push_back(std::move(tile));
+			m_tiles.push_back(std::make_pair(std::move(tile), nullptr));
 		}
 	}
 }
@@ -40,6 +40,34 @@ Board::Board() : m_tilesCount(TILES_COUNT), m_tileSize(TILES_SIZE) {
 void Board::draw(sf::RenderWindow& window) {
 	// Render all tiles on the board
 	for (auto& tile : m_tiles) {
-		tile->draw(window);	
+		tile.first->draw(window);
+
+		if (tile.second)
+		{
+			tile.second->draw(window);
+		}
 	}
+}
+
+bool Board::placeOnBoard(SlotPair* tile)
+{
+	std::cout << "TILE: " << tile->first->getPosition().x << " " << tile->first->getPosition().y << std::endl;
+	std::cout << "Hero: " << tile->second->getPosition().x << " " << tile->second->getPosition().y << std::endl;
+	return false;
+	//for(auto& t : m_tiles)
+	//{
+	//	if(t.first->checkContain(tile->second->getPosition()))
+	//	{
+	//		if(t.second)
+	//		{
+	//			//set the tile red colour
+	//			return false;
+	//		}
+
+	//		tile->second->setInitPos(t.first->getPosition());
+	//		tile->second->setPosition(t.first->getPosition());
+	//		t.second = std::move(tile->second);
+	//		return true;
+	//	}
+	//}
 }

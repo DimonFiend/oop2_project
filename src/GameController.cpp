@@ -5,9 +5,10 @@
 GameController::GameController(int w, int h, std::string title)
 {
 	// Constructor implementation
-	this->setState(std::make_unique<BuyingState>(*this, m_data));
 	m_window.create(sf::VideoMode(w, h), title, sf::Style::Close);
 	m_window.setFramerateLimit(60);
+	this->setState(std::make_unique<BuyingState>(*this,m_window, m_data));
+
 }
 
 void GameController::startGame()
@@ -35,10 +36,8 @@ void GameController::update()
 void GameController::render()
 {
 	m_window.clear();
-	m_state->draw(m_window);
+	m_state->draw();
 	m_window.display();
-	m_window.setView(m_window.getDefaultView());
-
 }
 
 void GameController::handleInput()
@@ -50,7 +49,7 @@ void GameController::handleInput()
 			m_window.close();
 		}
 
-		m_state->handleInput(event, m_window);
+		m_state->handleInput(event);
 	}
 	
 }

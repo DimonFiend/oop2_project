@@ -38,7 +38,13 @@ bool Heroes::checkContain(sf::Vector2f point)
 	return false;
 }
 
-void Heroes::setPosition(sf::Vector2f pos)
+void Heroes::setPosition(const sf::Vector2f& pos)
 {
 	m_hero.setPosition(pos);
+	std::cout << "Hero POS" << std::endl;
+}
+
+void Heroes::setInitPos(const sf::Vector2f& init)
+{
+	m_initPos = init;
 }

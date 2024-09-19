@@ -10,6 +10,6 @@ public:
 	virtual ~GameState() = default;
 
 	virtual void update() = 0;
-	virtual void draw(sf::RenderWindow& window) = 0;
-	virtual void handleInput(sf::Event& event, sf::RenderWindow& window) = 0;
+	virtual void draw() = 0;
+	virtual void handleInput(sf::Event& event) = 0;
 };

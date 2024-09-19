@@ -30,7 +30,6 @@ void Inventory::draw(sf::RenderWindow& window)
 		slot.first->draw(window);
 		if (slot.second)
 		{
-			std::cout << "Drawing hero" << std::endl;
 			slot.second->draw(window);
 		}
 	}
@@ -48,10 +47,27 @@ void Inventory::addHero(std::unique_ptr<Heroes> hero)
 		if (!slot.second)
 		{
 			hero->setPosition(slot.first->getPosition());
-			std::cout << "X: " << slot.first->getPosition().x << " Y: " << slot.first->getPosition().y << std::endl;
+			hero->setInitPos(slot.first->getPosition());
 			slot.second = std::move(hero);
+
 			m_currCapacity++;
 			break;
 		}
 	}
+}
+
+SlotPair* Inventory::checkContain(sf::Vector2f point)
+{
+	for (auto& slot : m_items)
+	{
+		if (slot.second)
+		{
+			if (slot.second->checkContain(point))
+			{
+				return &slot;
+				break;
+			}
+		}
+	}
+	return nullptr;
 }
