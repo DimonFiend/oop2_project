@@ -1,3 +1,7 @@
 BlueTile Tile1.png
 BrightTile Tile2.png
 InventorySlot Slot.png
+newgame newgame.png
+settings settings.png
+tutorial tutorial.png
+background background.png

@@ -2,12 +2,12 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
 Resources::Resources() {
     std::ifstream file("Textures.txt");
     try {
-
         if (!file.is_open()) {
-            throw std::runtime_error("File not found");
+            throw std::runtime_error("File 'Textures.txt' not found");
         }
 
         std::string line;
@@ -16,6 +16,7 @@ Resources::Resources() {
             std::string path;
             std::istringstream iss(line);
             iss >> name >> path;
+
             m_texture[name] = std::make_unique<sf::Texture>();
             if (!m_texture[name]->loadFromFile(path)) {
                 throw std::runtime_error("Failed to load texture from file: " + path);
@@ -23,8 +24,9 @@ Resources::Resources() {
         }
         file.close();
     }
-    catch (std::exception& e) {
-        //std::cerr << e.what() << std::endl;
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        throw;
     }
 }
 

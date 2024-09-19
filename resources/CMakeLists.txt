@@ -3,3 +3,9 @@ configure_file ("Tile2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Davis.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Slot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Textures.txt" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("newgame.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("settings.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("tutorial.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("background.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+
