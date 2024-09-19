@@ -85,7 +85,7 @@ void BuyingState::handleMouse()
 
 void BuyingState::handleMousePressed()
 {
-	if(m_selectedHero)
+	if(m_selectedHero && m_selectedHero->second)
 	{
 		sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
 		m_selectedHero->second->setPosition(mousePos);
@@ -94,9 +94,16 @@ void BuyingState::handleMousePressed()
 
 void BuyingState::handleHeroRelease()
 {
-	if (m_selectedHero && !m_data.placeOnBoard(m_selectedHero))
+	if (m_selectedHero && m_selectedHero->second)
 	{
-		m_selectedHero->second->InitPos();
+		if (!m_data.placeOnBoard(m_selectedHero))
+		{
+			m_selectedHero->second->initPos();
+		}
+		else
+		{
+			m_data.reduceInventoryCap();
+		}
 	}
 
 	m_selectedHero = nullptr;

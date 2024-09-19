@@ -12,6 +12,7 @@ public:
 	void makePurchase(std::unique_ptr<Heroes> hero);
 	SlotPair* checkContain(sf::Vector2f point) {return m_player->checkContain(point);};
 	bool placeOnBoard(SlotPair* slot);
+	void reduceInventoryCap() {m_player->reduceInventoryCap();};
 private:
 	std::unique_ptr<Player> m_player;
 

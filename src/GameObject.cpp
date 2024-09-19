@@ -17,6 +17,5 @@ sf::Vector2f GameObject::getPosition() const
 
 void GameObject::setPosition(sf::Vector2f pos)
 {
-	std::cout << "GameObject POS" << std::endl;
-	m_sprite.setPosition(pos.x + m_sprite.getOrigin().x, pos.y + m_sprite.getOrigin().y);
+	m_sprite.setPosition(pos);
 }

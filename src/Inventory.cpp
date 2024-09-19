@@ -13,7 +13,7 @@ Inventory::Inventory() : m_currCapacity(0)
 	auto slot_size = sf::Vector2f{ SLOT_SIZE, SLOT_SIZE };
 	for (int i = 0; i < MAX_SLOTS; i++)
 	{
-		sf::Vector2f pos{ 0, i* SLOT_SIZE + startY};
+		sf::Vector2f pos{ 0 + SLOT_SIZE / 2, i* SLOT_SIZE + startY + SLOT_SIZE / 2 };
 		auto slot = ObjFactory::create("Tile", "InventorySlot", slot_size);
 		slot->setPosition(pos);
 		
@@ -28,6 +28,10 @@ void Inventory::draw(sf::RenderWindow& window)
 	for (auto& slot : m_items)
 	{
 		slot.first->draw(window);
+	}
+
+	for (auto& slot : m_items)
+	{
 		if (slot.second)
 		{
 			slot.second->draw(window);

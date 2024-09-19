@@ -22,7 +22,7 @@ public:
 	void addHero(std::unique_ptr<Heroes> hero);
 	bool hasSpace() const {return !m_inventory.isFull();};
 	SlotPair* checkContain(sf::Vector2f point) {return m_inventory.checkContain(point);};
-
+	void reduceInventoryCap() {m_inventory.reduceInventoryCap();};
 private:
 	std::string m_name;
 	int m_lives;

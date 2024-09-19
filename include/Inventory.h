@@ -16,6 +16,7 @@ public:
 	bool isFull() const;
 	void addHero(std::unique_ptr<Heroes> hero);
 	SlotPair* checkContain(sf::Vector2f point);
+	void reduceInventoryCap() {m_currCapacity--;};
 private:
 	int m_currCapacity;
 	std::vector<std::pair<std::unique_ptr<Tile>, std::unique_ptr<Heroes>>> m_items;
