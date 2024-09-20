@@ -1,5 +1,6 @@
-#ifndef COMMAND_H
-#define COMMAND_H
+#pragma once
+#include <SFML/Graphics.hpp>
+
 
 class Command {
 public:
@@ -9,7 +10,11 @@ public:
 
 class NewGame : public Command {
 public:
+    NewGame(sf::RenderWindow& window) :m_window(window) {};
     void execute() override;  
+private:
+    sf::RenderWindow &m_window;
+    
 };
 
 class Settings : public Command {
@@ -22,7 +27,3 @@ public:
     void execute() override;
 };
 
-
-
-
-#endif 

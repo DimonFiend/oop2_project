@@ -6,7 +6,7 @@
 
 void NewGame::execute() {
     srand(time(NULL));
-    GameController::startGame();
+    GameController::startGame(m_window);
 }
 
 void Settings::execute() {

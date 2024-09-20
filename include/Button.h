@@ -1,5 +1,4 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -19,4 +18,3 @@ private:
     std::function<void()> m_onClick;
 };
 
-#endif // BUTTON_H

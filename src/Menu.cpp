@@ -15,7 +15,7 @@ void Menu::run() {
         );
 
         // Add buttons to the menu
-        addButton("newgame", { 600, 450 }, std::make_unique<NewGame>());
+        addButton("newgame", { 600, 450 }, std::make_unique<NewGame>(window));
         addButton("settings", { 850, 450 }, std::make_unique<Settings>());
         addButton("tutorial", { 1100, 450 }, std::make_unique<Tutorial>());
 

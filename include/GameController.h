@@ -12,8 +12,8 @@
 
 class GameController {
 public:
-	GameController(int w, int h, std::string title);
-	static void startGame(); // static function to run the game
+	GameController(sf::RenderWindow&, std::string title);
+	static void startGame(sf::RenderWindow &); // static function to run the game
 	void setState(std::unique_ptr<GameState> state) { m_state = std::move(state);};
 private:
 	void run();
@@ -21,7 +21,7 @@ private:
 	void render();
 	void handleInput();
 
-	sf::RenderWindow m_window;
+	sf::RenderWindow& m_window;
 	GameData m_data;
 	std::unique_ptr<GameState> m_state;
 };
