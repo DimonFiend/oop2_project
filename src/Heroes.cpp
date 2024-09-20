@@ -12,7 +12,7 @@ Heroes::Heroes(const std::string& name, sf::Vector2f& pos)
 	getSprite().setTexture(Resources::Instance().getTexture("Davis"));
 	getSprite().setTextureRect(sf::IntRect(0, 0, 80, 80));
 	auto size = getSprite().getTextureRect().getSize();
-	getSprite().setOrigin(size.x / 2, size.y / 2);
+	getSprite().setOrigin(size.x / 2.f, size.y / 2.f);
 	getSprite().setPosition(pos);
 	switch (name[0])
 	{

@@ -6,7 +6,7 @@
 #include "Settings.h"
 
 const int TILES_COUNT = 8;
-const float TILES_SIZE = 100;
+const sf::Vector2f TILES_SIZE{ 80, 80 };
 
 Board::Board() : m_tilesCount(TILES_COUNT), m_tileSize(TILES_SIZE) {
 	// Initialize the board with tiles
@@ -15,23 +15,23 @@ Board::Board() : m_tilesCount(TILES_COUNT), m_tileSize(TILES_SIZE) {
 
 	for (int i = 0; i < m_tilesCount; i++) 
 	{
-		float posY = startY + i * m_tileSize;
+		float posY = startY + i * m_tileSize.y;
 		for (int j = 0; j < m_tilesCount; j++)
 		{
-			float posX =startX + j * m_tileSize;
+			float posX = startX + j * m_tileSize.x;
 
 			std::unique_ptr<Tile> tile;
-			sf::Vector2f size{ m_tileSize, m_tileSize };
+
 			if ((i + j) % 2 == 0)
 			{
-				tile = std::move(ObjFactory::create("Tile", "BrightTile", size));
+				tile = std::move(ObjFactory::create("Tile", "BrightTile", m_tileSize));
 			}
 			else
 			{
-				tile = std::move(ObjFactory::create("Tile", "BlueTile", size));
+				tile = std::move(ObjFactory::create("Tile", "BlueTile", m_tileSize));
 			}
-			sf::Vector2f pos{ posX + m_tileSize / 2.f , posY + m_tileSize / 2.f };
-			tile->setPosition(pos);
+
+			tile->setPosition({posX, posY});
 			m_tiles.push_back(std::make_pair(std::move(tile), nullptr));
 		}
 	}
@@ -54,7 +54,7 @@ bool Board::placeOnBoard(SlotPair* tile)
 {
 	for(auto& t : m_tiles)
 	{
-		if(t.first->checkContain(tile->second->getPosition()))
+		if(t.first->checkContain(tile->second->getPosition()) && !t.second)
 		{
 			tile->second->setInitPos(t.first->getPosition());
 			tile->second->setPosition(t.first->getPosition());
