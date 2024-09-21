@@ -5,3 +5,4 @@ newgame newgame.png
 settings settings.png
 tutorial tutorial.png
 background background.png
+Davis Davis.png

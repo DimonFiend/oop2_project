@@ -3,7 +3,8 @@
 #include "GameObject.h"
 #include "Heroes.h"
 
-BuyingState::BuyingState(GameController& game, GameData& data) :GameState(game), m_data(data)
+BuyingState::BuyingState(GameController& game, sf::RenderWindow& window, GameData& data) 
+	:GameState(game), m_data(data), m_window(window), m_selectedHero(nullptr)
 { 
 	m_shop[0] = "a";
 	m_shop[1] = "b";
@@ -24,39 +25,52 @@ void BuyingState::generateShop()
 
 void BuyingState::update()
 {
-
+	handleMousePressed();
 }
 
-void BuyingState::draw(sf::RenderWindow& window)
+void BuyingState::draw()
 {
-	m_data.draw(window);
-	window.setView(window.getDefaultView());
+	m_data.draw(m_window);
 
 	for (int i = 0; i < m_heroesShop.size(); i++)
 	{
 		if (m_heroesShop[i])
 		{
-			m_heroesShop[i]->draw(window);
+			m_heroesShop[i]->draw(m_window);
 		}
 	}
 }
 
-void BuyingState::handleInput(sf::Event& event, sf::RenderWindow& window)
+void BuyingState::handleInput(sf::Event& event)
 {
+	sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+
 	if (event.type == sf::Event::MouseButtonReleased)
 	{
-		sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-		switch(event.mouseButton.button)
+		switch (event.mouseButton.button)
 		{
 		case sf::Mouse::Left:
-			handleMouse(mousePos);
+			handleMouse();
+			handleHeroRelease();
+			break;
+		}
+	}
+
+	if(event.type == sf::Event::MouseButtonPressed)
+	{
+		switch (event.mouseButton.button)
+		{
+		case sf::Mouse::Left:
+			m_selectedHero = m_data.checkContain(mousePos);
 			break;
 		}
 	}
 }
 
-void BuyingState::handleMouse(const sf::Vector2f& mousePos)
+void BuyingState::handleMouse()
 {
+	sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+
 	for(int i = 0; i < m_heroesShop.size(); i++)
 	{
 		if(m_heroesShop[i] && m_heroesShop[i]->checkContain(mousePos))
@@ -67,4 +81,30 @@ void BuyingState::handleMouse(const sf::Vector2f& mousePos)
 			}
 		}
 	}
+}
+
+void BuyingState::handleMousePressed()
+{
+	if(m_selectedHero && m_selectedHero->second)
+	{
+		sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+		m_selectedHero->second->setPosition(mousePos);
+	}
+}
+
+void BuyingState::handleHeroRelease()
+{
+	if (m_selectedHero && m_selectedHero->second)
+	{
+		if (!m_data.placeOnBoard(m_selectedHero))
+		{
+			m_selectedHero->second->initPos();
+		}
+		else
+		{
+			m_data.reduceInventoryCap();
+		}
+	}
+
+	m_selectedHero = nullptr;
 }

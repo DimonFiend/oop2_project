@@ -8,6 +8,7 @@ class Player
 {
 
 public:
+	using SlotPair = std::pair<std::unique_ptr<Tile>, std::unique_ptr<Heroes>>;
 	Player(const std::string& name) : m_lives(100), m_name(name){};
 	virtual ~Player() = default;
 
@@ -20,7 +21,8 @@ public:
 
 	void addHero(std::unique_ptr<Heroes> hero);
 	bool hasSpace() const {return !m_inventory.isFull();};
-
+	SlotPair* checkContain(sf::Vector2f point) {return m_inventory.checkContain(point);};
+	void reduceInventoryCap() {m_inventory.reduceInventoryCap();};
 private:
 	std::string m_name;
 	int m_lives;

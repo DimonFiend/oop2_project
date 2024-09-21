@@ -50,4 +50,5 @@ void GameController::handleInput()
 
         m_state->handleInput(event, m_window);
     }
+
 }

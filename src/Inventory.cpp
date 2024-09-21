@@ -13,7 +13,7 @@ Inventory::Inventory() : m_currCapacity(0)
 	auto slot_size = sf::Vector2f{ SLOT_SIZE, SLOT_SIZE };
 	for (int i = 0; i < MAX_SLOTS; i++)
 	{
-		sf::Vector2f pos{ 0, i* SLOT_SIZE + startY};
+		sf::Vector2f pos{ 0 + SLOT_SIZE / 2, i* SLOT_SIZE + startY + SLOT_SIZE / 2 };
 		auto slot = ObjFactory::create("Tile", "InventorySlot", slot_size);
 		slot->setPosition(pos);
 		
@@ -28,9 +28,12 @@ void Inventory::draw(sf::RenderWindow& window)
 	for (auto& slot : m_items)
 	{
 		slot.first->draw(window);
+	}
+
+	for (auto& slot : m_items)
+	{
 		if (slot.second)
 		{
-			std::cout << "Drawing hero" << std::endl;
 			slot.second->draw(window);
 		}
 	}
@@ -48,10 +51,27 @@ void Inventory::addHero(std::unique_ptr<Heroes> hero)
 		if (!slot.second)
 		{
 			hero->setPosition(slot.first->getPosition());
-			std::cout << "X: " << slot.first->getPosition().x << " Y: " << slot.first->getPosition().y << std::endl;
+			hero->setInitPos(slot.first->getPosition());
 			slot.second = std::move(hero);
+
 			m_currCapacity++;
 			break;
 		}
 	}
+}
+
+SlotPair* Inventory::checkContain(sf::Vector2f point)
+{
+	for (auto& slot : m_items)
+	{
+		if (slot.second)
+		{
+			if (slot.second->checkContain(point))
+			{
+				return &slot;
+				break;
+			}
+		}
+	}
+	return nullptr;
 }

@@ -21,3 +21,8 @@ void GameData::makePurchase(std::unique_ptr<Heroes> hero)
 {
 	m_player->addHero(std::move(hero));
 }
+
+bool GameData::placeOnBoard(SlotPair* slot)
+{
+	return m_board.placeOnBoard(slot);
+}
