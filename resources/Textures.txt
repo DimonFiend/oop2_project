@@ -1,0 +1,11 @@
+BlueTile Tile1.png
+BrightTile Tile2.png
+InventorySlot Slot.jpg
+newgame newgame.png
+settings settings.png
+tutorial tutorial.png
+background background.png
+Davis Davis.png
+UIPanel PanelUI.jpg
+ForestBG ForestBG.jpg
+shopslot shopslot.png
