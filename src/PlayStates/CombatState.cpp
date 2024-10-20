@@ -3,7 +3,8 @@
 #include <iostream>
 
 
-CombatState::CombatState(Player& player1, Player& player2)
+CombatState::CombatState(Player& player1, Player& player2, BoardUI& board)
+	: m_board(board)
 {
 	initPlayers(player1, m_player1);
 	initPlayers(player2, m_player2);

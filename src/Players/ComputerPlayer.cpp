@@ -3,13 +3,16 @@
 ComputerPlayer::ComputerPlayer(const std::string& name, BoardUI& board)
 	:Player(name), m_board(board)
 {
+	srand(time(0));
 	//for test
 	int maxOnBoard = getInventory().getBoardMaxCap();
 	for (int i = 0; i < maxOnBoard; i++)
 	{
-		int random = rand() % 3;
+		int random = rand() % 2;
 
-		getInventory().placeInBoard(std::move(HeroFactory::createHero("Heroes", {"a" + random}, board.getRandomePlacableSlot())));
+		getInventory().placeInBoard(HeroFactory::createHero("Heroes", {"a" + random}, board.getRandomePlacableSlot()));
+		auto pos = getInventory().getFighers()[i]->getPosition();
+		getInventory().getFighers()[i]->setIndex(board.posToIndex(pos));
 	}
 }
 

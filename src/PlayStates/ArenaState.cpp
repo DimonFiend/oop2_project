@@ -1,27 +1,29 @@
 #include "ArenaState.h"
 
 ArenaState::ArenaState(GameController& gameController, sf::RenderWindow& window, GameData& matchData)
-	: GameState(gameController), m_matchData(matchData), m_window(window), m_board(*matchData.getBoard())
+	: GameState(gameController), m_window(window), m_board(*matchData.getBoard())
 {
-	setPlayersCombat();
+	setPlayersCombat(matchData);
 }
 
 void ArenaState::setPlayersCombat(GameData& matchData)
 {
-	for (auto& player : m_matchData.getPlayers())
-	{
-		m_combats.push_back(std::make_unique<CombatState>(m_gameController, m_window, m_matchData, player));
-	}
+	auto& computers = matchData.getComputerPlayers();
+	m_combats.push_back(std::make_unique<CombatState>(*matchData.getPlayer(), *computers[0], m_board));
 }
 
 void ArenaState::update()
-{
-
+{ 
+	//m_combats[0]->update();
 }
 
 void ArenaState::draw()
 {
 	m_board.draw(m_window);
+	for (auto& i : m_combats)
+	{
+		i->draw(m_window);
+	}
 }
 
 void ArenaState::handleInput(sf::Event event)

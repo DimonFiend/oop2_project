@@ -6,7 +6,7 @@
 #include "CombatState.h"
 
 class ArenaState : public GameState {
-	std::vector<std::unique_ptr<CombatState> m_combats;
+	std::vector<std::unique_ptr<CombatState>> m_combats;
 
 	sf::RenderWindow& m_window;
 	BoardUI& m_board;

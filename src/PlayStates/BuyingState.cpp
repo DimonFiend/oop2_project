@@ -8,7 +8,7 @@
 #include "PlayStates/CombatState.h"
 
 BuyingState::BuyingState(GameController& game, sf::RenderWindow& window, GameData& data)
-	:GameState(game), m_data(data),
+	:GameState(game),
 	m_player(*data.getPlayer()),
 	m_computerVector(data.getComputerPlayers()),
 	m_inventory(m_player.getInventory()),
@@ -22,11 +22,7 @@ BuyingState::BuyingState(GameController& game, sf::RenderWindow& window, GameDat
 
 	m_readyButton("shopslot", sf::Vector2f(window.getSize().x / 2, window.getSize().y - 50),
 		std::bind(&SwitchToFightState::execute, std::make_shared<SwitchToFightState>(game, window, data)))
-{
-	m_toCombat.setSize(sf::Vector2f(50, 50));
-	m_toCombat.setFillColor(sf::Color::White);
-	m_toCombat.setPosition(250, 810);
-}	
+{}	
 
 void BuyingState::update()
 {
@@ -45,15 +41,6 @@ void BuyingState::draw()
 	{
 		m_selected->draw(m_window);
 	}
-
-	for(auto& computer : m_computerVector)
-	{
-		computer->draw(m_window);
-	}
-
-	// vadims button
-	m_window.draw(m_toCombat);
-	//
 }
 
 void BuyingState::handleInput(sf::Event event)

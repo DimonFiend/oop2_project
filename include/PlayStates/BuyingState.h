@@ -30,5 +30,4 @@ private:
 	Shop m_shop;
 	Button m_shopButton;
 	Button m_readyButton;
-
 };
