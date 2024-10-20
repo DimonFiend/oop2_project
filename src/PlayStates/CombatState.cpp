@@ -18,7 +18,14 @@ CombatState::CombatState(Player& player1, Player& player2)
 
 void CombatState::update()
 {
-
+	for (auto& i : m_player2)
+	{
+		i.update(1);
+	}
+	for (auto& i : m_player1)
+	{
+		i.update(1);
+	}
 }
 
 void CombatState::draw(sf::RenderWindow& window)
