@@ -1,11 +1,9 @@
 #include "CombatState.h"
 #include "Player.h"
-
 #include <iostream>
 
-CombatState::CombatState(GameController& gameController, sf::RenderWindow& window, GameData& matchData,
-						 Player& player1, Player& player2)
-	: GameState(gameController), m_matchData(matchData), m_window(window), m_board(*matchData.getBoard())
+
+CombatState::CombatState(Player& player1, Player& player2)
 {
 	initPlayers(player1, m_player1);
 	initPlayers(player2, m_player2);
@@ -13,8 +11,7 @@ CombatState::CombatState(GameController& gameController, sf::RenderWindow& windo
 	// mirror second players units
 	for (auto& i : m_player2)
 	{
-		sf::Vector2i temp = i.getInverseIndex();
-		i.setIndex(temp);
+		i.setIndex(i.getInverseIndex());
 		i.setPosition(m_board.indexToPos(i.getIndex()));
 	}
 }
@@ -24,16 +21,15 @@ void CombatState::update()
 
 }
 
-void CombatState::draw()
+void CombatState::draw(sf::RenderWindow& window)
 {
-	m_board.draw(m_window);
 	for (auto& i : m_player2)
 	{
-		i.draw(m_window);
+		i.draw(window);
 	}
 	for (auto& i : m_player1)
 	{
-		i.draw(m_window);
+		i.draw(window);
 	}
 }
 

@@ -10,9 +10,12 @@
 BuyingState::BuyingState(GameController& game, sf::RenderWindow& window, GameData& data)
 	:GameState(game), m_data(data),
 	m_player(*data.getPlayer()),
+	m_computerVector(data.getComputerPlayers()),
 	m_inventory(m_player.getInventory()),
 	m_board(*data.getBoard()),
-	m_window(window), m_selected(nullptr), m_shop({ (m_window.getSize().x / 2.f),300.f }),
+	m_window(window),
+	m_selected(nullptr),
+	m_shop({ (m_window.getSize().x / 2.f),300.f }),
 
 	m_shopButton("shopslot", sf::Vector2f(window.getSize().x - 50, window.getSize().y - 50),
 		std::bind(&ToggleShopVisibility::execute, std::make_shared<ToggleShopVisibility>(m_shop))),
@@ -43,6 +46,11 @@ void BuyingState::draw()
 		m_selected->draw(m_window);
 	}
 
+	for(auto& computer : m_computerVector)
+	{
+		computer->draw(m_window);
+	}
+
 	// vadims button
 	m_window.draw(m_toCombat);
 	//
@@ -51,13 +59,6 @@ void BuyingState::draw()
 void BuyingState::handleInput(sf::Event event)
 {
 	sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
-
-	// vadims button
-	if (m_toCombat.getGlobalBounds().contains(mousePos))
-	{
-		m_game->setState(std::make_unique<CombatState>(*m_game, m_window, m_data, m_player, m_player), true);
-	}
-	//
 
 	if (event.type == sf::Event::MouseButtonReleased)
 	{

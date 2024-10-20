@@ -11,6 +11,19 @@ class ComputerPlayer : public Player {
 public:
 	ComputerPlayer(const std::string& name, BoardUI& board);
 	void setShop(std::unique_ptr<Shop> shop);
-	virtual void draw(sf::RenderWindow& window) {};
+
+	//draws the units on the board
+	virtual void draw(sf::RenderWindow& window)
+	{
+		auto& unitsOnBoard = getInventory().getFighers();
+		for (auto& unit : unitsOnBoard)
+		{
+			if (unit)
+			{
+				unit->draw(window);
+			}
+		}
+
+	};
 
 };

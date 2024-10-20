@@ -2,17 +2,15 @@
 #include "HumanPlayer.h"
 #include <utility>
 #include "Settings.h"
-
+#include "macros.h"
 GameData::GameData()
 	:m_selected(nullptr)
 {
 	m_player = std::make_unique<HumanPlayer>("Hui");
 	m_board = std::make_unique<BoardUI>(sf::Vector2f{ static_cast<float>(Settings::Instance().getWidth()) / 3.5f,
 														(static_cast<float>(Settings::Instance().getHeight()) / 6) - 30 });;
-}
-
-void GameData::draw(sf::RenderWindow& window)
-{
-	m_board->draw(window);
-	m_player->draw(window);
+	for(int i = 0; i < Macros::MAX_PC_PLAYERS; i++)
+	{
+		m_computerPlayers.push_back(std::make_unique<ComputerPlayer>("PC" + std::to_string(i), *m_board));
+	}
 }

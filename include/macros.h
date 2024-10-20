@@ -8,6 +8,7 @@ namespace Macros
 	constexpr int MAX_BOARD_SLOTS = 8;
 	constexpr int INIT_BOARD_CAPACITY = 3;
 	constexpr int MAX_SHOP_SLOT = 8;
+	constexpr int MAX_PC_PLAYERS = 7;
 	const sf::Vector2f BOARD_TILE_SIZE = { 80, 80 };
 	const sf::Vector2f INV_SLOT_SIZE{ 80,80 };
 }

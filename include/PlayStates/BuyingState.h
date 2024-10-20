@@ -3,7 +3,7 @@
 #include "BoardUI.h"
 #include "Inventory.h"
 #include "GameData.h"
-
+#include "typedefs.h"
 #include "GameState.h"
 #include <map>
 #include <array>
@@ -21,6 +21,7 @@ public:
 	void handleHeroRelease();
 private:
 	Player& m_player;
+	ComputerVector& m_computerVector;
 	Inventory& m_inventory;
 	BoardUI& m_board;
 
@@ -30,11 +31,4 @@ private:
 	Button m_shopButton;
 	Button m_readyButton;
 
-
-	// Nissuim shel vadim
-
-	GameData& m_data;
-	sf::RectangleShape m_toCombat;
-
-	//
 };
