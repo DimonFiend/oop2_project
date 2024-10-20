@@ -5,7 +5,12 @@ newgame newgame.png
 settings settings.png
 tutorial tutorial.png
 background background.png
-Davis Davis.png
 UIPanel PanelUI.jpg
 ForestBG ForestBG.jpg
 shopslot shopslot.png
+
+Davis Davis.png
+Deep Deep_Hero.png
+Dennis Dennis_Hero.png
+Firen Firen_Hero.png
+Freeze Freeze_Hero.png

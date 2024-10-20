@@ -21,6 +21,7 @@ add_subdirectory (src/ObjectContainers)
 add_subdirectory (src/Players)
 add_subdirectory (src/PlayStates)
 add_subdirectory (resources)
+add_subdirectory (resources/Heroes)
 
 include (cmake/Zip.cmake)
 
