@@ -14,6 +14,7 @@ Resources::Resources() {
         while (std::getline(file, line)) {
             std::string name;
             std::string path;
+
             std::istringstream iss(line);
             iss >> name >> path;
 
