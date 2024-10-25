@@ -2,8 +2,9 @@
 #include "GameData.h"
 #include "BoardUI.h"
 #include <SFML/Graphics.hpp>
-class Player;
+#include "ArenaUnit.h"
 
+class Player;
 class CombatState {
 
 public:
@@ -15,8 +16,8 @@ public:
 
 private:
 
-	void initPlayers(Player& p, std::vector<Unit>& units);
+	void initPlayers(Player& p, std::vector<std::unique_ptr<ArenaUnit>>& units);
 	BoardUI& m_board;
-	std::vector<Unit> m_player1;
-	std::vector<Unit> m_player2;
+	std::vector<std::unique_ptr<ArenaUnit>> m_player1;
+	std::vector<std::unique_ptr<ArenaUnit>> m_player2;
 };

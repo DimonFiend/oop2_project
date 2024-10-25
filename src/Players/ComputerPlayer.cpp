@@ -10,7 +10,7 @@ ComputerPlayer::ComputerPlayer(const std::string& name, BoardUI& board)
 	{
 		int random = rand() % 2;
 
-		getInventory().placeInBoard(HeroFactory::createHero("Heroes", {"a" + random}, board.getRandomePlacableSlot()));
+		getInventory().placeInBoard(HeroFactory::createBuyingPhaseHero("Davis", board.getRandomePlacableSlot()));
 		auto pos = getInventory().getFighers()[i]->getPosition();
 		getInventory().getFighers()[i]->setIndex(board.posToIndex(pos));
 	}

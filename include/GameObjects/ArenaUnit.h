@@ -1,0 +1,34 @@
+#pragma once
+#include "GameObject.h"
+#include "UnitState/MoveState.h"
+#include "UnitState/AttackState.h"
+#include "UnitsAttributes.h"
+
+typedef std::unique_ptr<AttackState> attackState;
+typedef std::unique_ptr<MoveState> moveState;
+typedef std::unique_ptr<UnitsAttributes> unitAttributes;
+
+enum state
+{
+	Move, Attack
+};
+
+class ArenaUnit : public GameObject{
+	//attackState m_attackState;
+	moveState m_moveState;
+	UnitState* m_currentState;
+
+	sf::Vector2i m_indexOnBoard;
+	bool m_toChange;
+	state m_next;
+	std::string m_name;
+public:
+	ArenaUnit(unitAttributes attributes, const sf::Vector2i& index, const sf::Vector2f& pos);
+	void update(const float dt);
+	void switchState(const state s);
+	void requestSwitchState(const state s);
+	sf::Vector2i getInverseIndex() const;
+	void setIndex(const sf::Vector2i& index) { m_indexOnBoard = index; };
+	sf::Vector2i getIndex() const { return m_indexOnBoard; };
+	void setPos(const sf::Vector2f& pos) { getSprite().setPosition(pos); };
+};

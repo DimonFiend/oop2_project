@@ -2,19 +2,25 @@
 #include <iostream>
 #include <memory>
 #include <map>
-#include "Unit.h"
 #include <functional>
+#include <SFML/Graphics.hpp>
+#include <string>
 
 // ================   class Factory   ============================
+class ArenaUnit;
+class BuyingStateUnit;
+class UnitsAttributes;
 class HeroFactory {
 public:
-	using objFunction = std::function<std::unique_ptr<Unit>(const std::string&,const sf::Vector2f&)>;
+	using objFunction = std::function<std::unique_ptr<UnitsAttributes>()>;
 	using mymap = std::map<std::string, objFunction>;
 
-	static std::unique_ptr<Unit> createHero(const std::string& name, const std::string& type, const sf::Vector2f& pos);
+	static std::unique_ptr<ArenaUnit> createFightStateHero(const std::string& name, const sf::Vector2i& index, const sf::Vector2f& pos);
+	static std::unique_ptr<BuyingStateUnit> createBuyingPhaseHero(const std::string& name, const sf::Vector2f& pos);
 	static bool registerit(const std::string& name, objFunction);
 
 private:
+	static std::unique_ptr<UnitsAttributes> getAttribute(const std::string& name);
 	static mymap& getMap()
 	{
 		static mymap m_map;

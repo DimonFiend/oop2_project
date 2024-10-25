@@ -26,7 +26,7 @@ private:
 	BoardUI& m_board;
 
 	sf::RenderWindow& m_window;
-	Unit* m_selected;
+	BuyingStateUnit* m_selected;
 	Shop m_shop;
 	Button m_shopButton;
 	Button m_readyButton;

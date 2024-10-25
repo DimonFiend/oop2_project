@@ -15,7 +15,7 @@ void Player::reduceInventoryCap()
 	m_inventory.reduceInventoryCap();
 }
 
-std::unique_ptr<Unit> Player::makePurchase(std::unique_ptr<Unit> hero)
+std::unique_ptr<BuyingStateUnit> Player::makePurchase(std::unique_ptr<BuyingStateUnit> hero)
 {
 	if(m_money >= hero->getCost() && hasSpace())
 	{

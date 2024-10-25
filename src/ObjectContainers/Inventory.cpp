@@ -36,7 +36,7 @@ bool Inventory::isFull() const
 	return m_InventoryCapacity == Macros::MAX_INV_SLOT;
 }
 
-Unit* Inventory::checkContain(const sf::Vector2f& point)
+BuyingStateUnit* Inventory::checkContain(const sf::Vector2f& point)
 {
 	for (auto& slot : m_onSide)
 	{
@@ -77,7 +77,7 @@ void Inventory::placeUnit(const sf::Vector2f& point, BoardUI& board)
 	returnUnit();
 }
 
-void Inventory::placeInBoard(std::unique_ptr<Unit> unit)
+void Inventory::placeInBoard(std::unique_ptr<BuyingStateUnit> unit)
 {
 	for (auto& boardSlot : m_onBoard)
 	{
@@ -143,7 +143,7 @@ void Inventory::placeUnitOnSide(const sf::Vector2f& point)
 	clearSelected();
 }
 
-std::unique_ptr<Unit> Inventory::getUnit()
+std::unique_ptr<BuyingStateUnit> Inventory::getUnit()
 {
 	for(auto it = m_selectedContainer.first->begin(); it != m_selectedContainer.first->end(); it++)
 	{
@@ -205,7 +205,7 @@ bool Inventory::checkPlacableOnBoard(const sf::Vector2f& point, BoardUI& board)
 	return true;
 }
 
-void Inventory::addHero(std::unique_ptr<Unit> hero)
+void Inventory::addHero(std::unique_ptr<BuyingStateUnit> hero)
 {
 	for(int i = 0; i < Macros::MAX_INV_SLOT; i++)
 	{

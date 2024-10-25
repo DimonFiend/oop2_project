@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.26)
 
 project (oop2_ex03)
-set (MY_AUTHORS "")
+set (MY_AUTHORS "Dima_Nikonov")
 
 include (cmake/CompilerSettings.cmake)
 
@@ -15,11 +15,15 @@ add_subdirectory (include/UI)
 add_subdirectory (include/ObjectContainers)
 add_subdirectory (include/Players)
 add_subdirectory (include/PlayStates)
+add_subdirectory (include/UnitsData)
+add_subdirectory (include/GameObjects)
 add_subdirectory (src)
 add_subdirectory (src/UI)
 add_subdirectory (src/ObjectContainers)
 add_subdirectory (src/Players)
 add_subdirectory (src/PlayStates)
+add_subdirectory (src/UnitsData)
+add_subdirectory (src/GameObjects)
 add_subdirectory (resources)
 add_subdirectory (resources/Heroes)
 

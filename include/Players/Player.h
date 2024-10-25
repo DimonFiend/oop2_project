@@ -9,7 +9,7 @@ class Player
 {
 
 public:
-	Player(const std::string& name) : m_lives(100), m_name(name), m_money(0){};
+	Player(const std::string& name) : m_lives(100), m_name(name), m_money(100) {};
 	virtual ~Player() = default;
 
 	void SetName(const std::string name) { m_name = name; };
@@ -24,7 +24,7 @@ public:
 	bool checkContain(sf::Vector2f point);
 	void reduceInventoryCap();
 
-	std::unique_ptr<Unit> makePurchase(std::unique_ptr<Unit> hero);
+	std::unique_ptr<BuyingStateUnit> makePurchase(std::unique_ptr<BuyingStateUnit> hero);
 	Inventory& getInventory() { return m_inventory; };
 
 	Units& getFighters();

@@ -2,9 +2,8 @@
 #include "ShopUI.h"
 #include <map>
 #include <array>
-#include "Unit.h"
-#include "HeroFactory.h"
 
+class BuyingStateUnit;
 class Player;
 class Shop {
 public:
@@ -16,7 +15,7 @@ public:
 private:
     ShopUI m_shopUI;
     std::map<int, std::string> m_hero;
-    std::array<std::unique_ptr<Unit>, 8> m_heroesShop;
+    std::array<std::unique_ptr<BuyingStateUnit>, 8> m_heroesShop;
     bool m_visible;
 
     void generateHeroes();
