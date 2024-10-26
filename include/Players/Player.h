@@ -4,20 +4,21 @@
 #include <SFML/Graphics.hpp>
 #include "Inventory.h"
 #include "typedefs.h"
-
+#include "macros.h"
 class Player
 {
 
 public:
-	Player(const std::string& name) : m_lives(100), m_name(name), m_money(100) {};
+	Player(const std::string& name) : m_health(Macros::PLAYER_MAX_HP), m_name(name), m_money(100) {};
 	virtual ~Player() = default;
 
 	void SetName(const std::string name) { m_name = name; };
-	const std::string GetName() const { return m_name; };
 	virtual void draw(sf::RenderWindow& window) = 0;
 
-	void UpdateLives(int lives) { m_lives -= lives; };
-	int GetLives() const { return m_lives;};
+	void updateHealth(int lives) { m_health -= lives; };
+	int getHealth() const { return m_health;};
+	int& getHealth() { return m_health; };
+	const std::string getName() const { return m_name; };
 	const unsigned int getMoney() const { return m_money; };
 
 	bool hasSpace() const;
@@ -31,7 +32,7 @@ public:
 
 private:
 	std::string m_name;
-	int m_lives;
+	int m_health;
 	Inventory m_inventory;
 	unsigned int m_money;
 };

@@ -10,4 +10,5 @@ configure_file ("PanelUI.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ForestBG.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopslot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+configure_file ("ComicFont.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 

@@ -10,6 +10,7 @@
 #include "State.h"
 #include "GamePanelUI.h"
 #include <queue>
+#include "PlayersStatusBar.h"
 
 //using State = std::unique_ptr<GameState>;
 class GameController : public State {
@@ -27,5 +28,6 @@ private:
 	sf::RenderWindow& m_window;
 	std::vector<std::unique_ptr<GameState>> m_state;
 	std::queue<std::pair<std::unique_ptr<GameState>, bool>> m_states_q;
+	PlayersStatusBar m_PlayersStatus;
 	sf::Sprite m_background;
 };

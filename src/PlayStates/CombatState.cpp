@@ -14,6 +14,7 @@ CombatState::CombatState(Player& player1, Player& player2, BoardUI& board)
 	{
 		i->setIndex(i->getInverseIndex());
 		i->setPos(m_board.indexToPos(i->getIndex()));
+		i->flipUnit();
 	}
 }
 

@@ -5,6 +5,7 @@
 class UIElement {
 public:
 	UIElement(const sf::Vector2f& pos);
+	UIElement() = default;
 	virtual ~UIElement() = default;
 	virtual void draw(sf::RenderWindow& window) = 0;
 	void setPosition(sf::Vector2f position);

@@ -31,4 +31,5 @@ public:
 	void setIndex(const sf::Vector2i& index) { m_indexOnBoard = index; };
 	sf::Vector2i getIndex() const { return m_indexOnBoard; };
 	void setPos(const sf::Vector2f& pos) { getSprite().setPosition(pos); };
+	void flipUnit() { getSprite().setScale(-1, 1); };
 };

@@ -6,7 +6,7 @@
 #include "Resources.h"
 
 GameController::GameController(GameEngine& engine, sf::RenderWindow& window)
-    : State(engine), m_window(window)
+    : State(engine), m_window(window), m_PlayersStatus(m_data)
 {
     // Constructor implementation
    m_state.push_back(std::make_unique<BuyingState>(*this, m_window, m_data));
@@ -40,12 +40,14 @@ void GameController::update()
     {
         (*it)->update();
     }
+    m_PlayersStatus.update();
 }
 
 void GameController::draw()
 {
 	m_window.draw(m_background);
 	m_gameUI.draw(m_window);
+    m_PlayersStatus.draw(m_window);
 
     for (auto it = m_state.rbegin(); it != m_state.rend(); it++)
     {

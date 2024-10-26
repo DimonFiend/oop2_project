@@ -6,6 +6,7 @@ ShopUI::ShopUI(const sf::Vector2f& position)
     : UIElement(position), m_numSlots(Macros::MAX_SHOP_SLOT)
 {
     setFrame(position);
+
     float frameWidth = m_frame.getSize().x;
     float slotHeight = position.y - m_frame.getSize().y / 2 + 5;
     sf::Vector2f slotSize = { frameWidth / m_numSlots - 10, m_frame.getSize().y - 10};

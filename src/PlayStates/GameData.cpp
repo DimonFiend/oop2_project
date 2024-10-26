@@ -11,6 +11,6 @@ GameData::GameData()
 														(static_cast<float>(Settings::Instance().getHeight()) / 6) - 30 });;
 	for(int i = 0; i < Macros::MAX_PC_PLAYERS; i++)
 	{
-		m_computerPlayers.push_back(std::make_unique<ComputerPlayer>("PC" + std::to_string(i), *m_board));
+		m_computerPlayers.push_back(std::make_unique<ComputerPlayer>("Computer " + std::to_string(i+1), *m_board));
 	}
 }

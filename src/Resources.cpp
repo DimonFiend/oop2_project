@@ -25,10 +25,11 @@ Resources::Resources() {
         }
         file.close();
     }
-    catch (const std::exception& e) {
+    catch (const std::exception& e)
+    {
         std::cerr << "Error: " << e.what() << std::endl;
-        throw;
     }
+    m_font.loadFromFile("ComicFont.ttf");
 }
 
 sf::Texture& Resources::getTexture(const std::string& type)
