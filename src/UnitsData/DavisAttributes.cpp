@@ -6,7 +6,7 @@
 DavisAttributes::DavisAttributes()
 {
 	setAttack(10);
-	setHealth(100);
+	setHealth(70);
 	setSpeed(5);
 	setCost(3);
 	setAttackRange(1);

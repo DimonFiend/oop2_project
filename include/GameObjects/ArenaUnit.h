@@ -3,6 +3,7 @@
 #include "UnitState/MoveState.h"
 #include "UnitState/AttackState.h"
 #include "UnitsAttributes.h"
+#include "HpBar.h"
 #include "Animation.h"
 #include "CharacterActions.h"
 
@@ -26,11 +27,14 @@ class ArenaUnit : public GameObject
 	state m_next;
 
 	std::string m_name;
+	HpBar m_hpBar;
+
 	Animation m_animation;
 public:
 
 	ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatState& combat);
 
+	void draw(sf::RenderWindow& window) override;
 	void update(const float dt);
 	void switchState(const state s);
 	void requestSwitchState(const state s);
