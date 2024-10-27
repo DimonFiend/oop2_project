@@ -1,5 +1,6 @@
 #include "DennisAttributes.h"
 #include "HeroFactory.h"
+#include "UnitState/MoveToClosest.h"
 
 DennisAttributes::DennisAttributes()
 {
@@ -9,6 +10,7 @@ DennisAttributes::DennisAttributes()
 	setCost(4);
 	setAttackRange(1);
 	setName("Dennis");
+	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
 }
 
 bool DennisAttributes::m_bool_init = HeroFactory::registerit("Dennis",

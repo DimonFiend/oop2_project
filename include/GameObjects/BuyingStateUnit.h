@@ -4,7 +4,6 @@
 
 typedef std::unique_ptr<UnitsAttributes> unitAttributes;
 
-
 class BuyingStateUnit : public GameObject {
 
 private:
@@ -20,6 +19,7 @@ public:
 	const std::string getName() const { return m_name; };
 
 	sf::Vector2f getInitPos() const { return m_initPos; };
+	sf::Vector2i getInverseIndex() const;
 	void initPos() { getSprite().setPosition(m_initPos); };
 	void setInitPos(const sf::Vector2f& pos) { m_initPos = pos; };
 	void setIndex(const sf::Vector2i& point);

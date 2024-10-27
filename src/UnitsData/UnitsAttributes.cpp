@@ -88,9 +88,14 @@ const std::string UnitsAttributes::getName() const
 	return m_name;
 }
 
-std::unique_ptr<UnitsAttributes> UnitsAttributes::clone()
+//std::unique_ptr<UnitsAttributes> UnitsAttributes::clone()
+//{
+//	return std::make_unique<UnitsAttributes>(*this);
+//}
+
+std::unique_ptr<MoveState> UnitsAttributes::getMoveState()
 {
-	return std::make_unique<UnitsAttributes>(*this);
+	return std::move(m_moveState);
 }
 
 

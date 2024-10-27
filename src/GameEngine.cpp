@@ -20,20 +20,21 @@ void GameEngine::setState(std::unique_ptr<State> state, bool change)
 
 void GameEngine::run()
 {
-	//sf::Clock m_deltaClock; delta time
+	sf::Clock m_deltaClock;
+	float dt;
 	while (m_window.isOpen() && !m_states.empty())
 	{
-		//m_deltaClock.restart();
+		dt = m_deltaClock.restart().asSeconds();
 		handleInput();
-		update();
+		update(dt);
 		render();
 		changeState();
 	}
 }
 
-void GameEngine::update()
+void GameEngine::update(const float dt)
 {
-	m_states.top()->update();
+	m_states.top()->update(dt);
 }
 
 void GameEngine::render()

@@ -12,9 +12,9 @@ void ArenaState::setPlayersCombat(GameData& matchData)
 	m_combats.push_back(std::make_unique<CombatState>(*matchData.getPlayer(), *computers[0], m_board));
 }
 
-void ArenaState::update()
+void ArenaState::update(const float dt)
 { 
-	//m_combats[0]->update();
+	m_combats[0]->update(dt);
 }
 
 void ArenaState::draw()

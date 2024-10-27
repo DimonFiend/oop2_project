@@ -10,12 +10,14 @@
 class ArenaUnit;
 class BuyingStateUnit;
 class UnitsAttributes;
+class CombatState;
+
 class HeroFactory {
 public:
 	using objFunction = std::function<std::unique_ptr<UnitsAttributes>()>;
 	using mymap = std::map<std::string, objFunction>;
 
-	static std::unique_ptr<ArenaUnit> createFightStateHero(const std::string& name, const sf::Vector2i& index, const sf::Vector2f& pos);
+	static std::unique_ptr<ArenaUnit> createFightStateHero(const std::string& name, const sf::Vector2f& pos, CombatState& combat);
 	static std::unique_ptr<BuyingStateUnit> createBuyingPhaseHero(const std::string& name, const sf::Vector2f& pos);
 	static bool registerit(const std::string& name, objFunction);
 

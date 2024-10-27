@@ -6,28 +6,20 @@
 CombatState::CombatState(Player& player1, Player& player2, BoardUI& board)
 	: m_board(board)
 {
-	initPlayers(player1, m_player1);
-	initPlayers(player2, m_player2);
-
-	// mirror second players units
-	for (auto& i : m_player2)
-	{
-		i->setIndex(i->getInverseIndex());
-		i->setPos(m_board.indexToPos(i->getIndex()));
-		i->flipUnit();
-	}
+	initPlayerOne(player1, m_player1);
+	initPlayerTwo(player2, m_player2);
 }
 
-void CombatState::update()
+void CombatState::update(const float dt)
 {
-	/*for (auto& i : m_player2)
+	for (auto& i : m_player2)
 	{
-		i.update(1);
+		i->update(dt);
 	}
 	for (auto& i : m_player1)
 	{
-		i.update(1);
-	}*/
+		i->update(dt);
+	}
 }
 
 void CombatState::draw(sf::RenderWindow& window)
@@ -47,7 +39,17 @@ void CombatState::handleInput(sf::Event event)
 	// no input in combat, maybe pause or quit to menu?
 }
 
-void CombatState::initPlayers(Player& p, std::vector<std::unique_ptr<ArenaUnit>>& units)
+arenaUnits& CombatState::getLeftTeam()
+{
+	return m_player1;
+}
+
+arenaUnits& CombatState::getRightTeam()
+{
+	return m_player2;
+}
+
+void CombatState::initPlayerOne(Player& p, arenaUnits& units)
 {
 	Units& onBoard = p.getFighters();
 
@@ -58,7 +60,26 @@ void CombatState::initPlayers(Player& p, std::vector<std::unique_ptr<ArenaUnit>>
 			auto name = i.get()->getName();
 			auto index = i.get()->getIndex();
 			auto pos = i.get()->getPosition();
-			units.push_back(std::move(HeroFactory::createFightStateHero(name, index, pos)));
+			units.emplace_back(HeroFactory::createFightStateHero(name, pos, *this));
+		}
+	}
+}
+
+void CombatState::initPlayerTwo(Player& p, arenaUnits& units)
+{
+	Units& onBoard = p.getFighters();
+
+	for (auto& i : onBoard)
+	{
+		if (i)
+		{
+			auto index = i->getInverseIndex();
+			auto pos = m_board.indexToPos((index));
+			auto name = i.get()->getName();
+
+			units.emplace_back(HeroFactory::createFightStateHero(name, pos, *this));
+			units[units.size()-1]->flipUnit();
+			units[units.size()-1]->flipTeam();
 		}
 	}
 }
