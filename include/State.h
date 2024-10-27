@@ -8,7 +8,7 @@ class State {
 public:
 	State(GameEngine& engine);
 	virtual ~State() = default;
-	virtual void update() = 0;
+	virtual void update(const float dt) = 0;
 	virtual void draw() = 0;
 	virtual void handleInput(sf::Event event) = 0;
 	virtual void nextState(std::unique_ptr<State> state, bool change);

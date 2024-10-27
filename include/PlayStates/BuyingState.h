@@ -13,7 +13,7 @@
 class BuyingState : public GameState {
 public:
 	BuyingState(GameController& game,sf::RenderWindow& window, GameData& data);
-	virtual void update() override;
+	virtual void update(const float dt = 0) override;
 	virtual void draw() override;
 	virtual void handleInput(sf::Event event) override;
 	void handleMousePressed();

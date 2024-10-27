@@ -3,9 +3,11 @@
 #include "UnitsAttributes.h"
 #include "ArenaUnit.h"
 
-std::unique_ptr<ArenaUnit> HeroFactory::createFightStateHero(const std::string& name , const sf::Vector2i& index, const sf::Vector2f& pos)
+#include "PlayStates/CombatState.h"
+
+std::unique_ptr<ArenaUnit> HeroFactory::createFightStateHero(const std::string& name, const sf::Vector2f& pos, CombatState& combat)
 {
-	return std::make_unique<ArenaUnit>(std::move(getAttribute(name)), index, pos);
+	return std::make_unique<ArenaUnit>(std::move(getAttribute(name)), pos, combat);
 }
 
 std::unique_ptr<BuyingStateUnit> HeroFactory::createBuyingPhaseHero(const std::string& name, const sf::Vector2f& pos)

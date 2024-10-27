@@ -14,7 +14,7 @@ public:
 	void setState(std::unique_ptr<State> state, bool change);
 
 private:
-	void update();
+	void update(const float dt);
 	void render();
 	void handleInput();
 	void changeState();

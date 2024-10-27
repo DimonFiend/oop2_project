@@ -18,7 +18,7 @@ public:
 	GameController(GameEngine& m_engine, sf::RenderWindow& window);
 	void setState(std::unique_ptr<GameState> state, bool change);
 	virtual void changeState();
-	void update();
+	void update(const float dt);
 	void draw();
 	void handleInput(sf::Event event);
 private:

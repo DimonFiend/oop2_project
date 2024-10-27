@@ -27,3 +27,8 @@ void BuyingStateUnit::setIndex(const sf::Vector2i& point)
 	m_indexOnBoard = point;
 }
 
+sf::Vector2i BuyingStateUnit::getInverseIndex() const
+{
+	return sf::Vector2i(std::abs((Macros::BOARD_SIZE - 1) - m_indexOnBoard.x), m_indexOnBoard.y);
+}
+

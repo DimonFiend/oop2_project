@@ -1,5 +1,6 @@
 #include "DavisAttributes.h"
 #include "HeroFactory.h"
+#include "UnitState/MoveToClosest.h"
 
 DavisAttributes::DavisAttributes()
 {
@@ -9,6 +10,7 @@ DavisAttributes::DavisAttributes()
 	setCost(3);
 	setAttackRange(1);
 	setName("Davis");
+	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
 }
 
 bool DavisAttributes::m_bool_init = HeroFactory::registerit("Davis",

@@ -34,11 +34,11 @@ void GameController::changeState()
 }
 
 
-void GameController::update()
+void GameController::update(const float dt)
 {
     for (auto it = m_state.rbegin(); it != m_state.rend(); it++)
     {
-        (*it)->update();
+        (*it)->update(dt);
     }
     m_PlayersStatus.update();
 }
