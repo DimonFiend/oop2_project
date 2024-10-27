@@ -3,6 +3,8 @@
 #include "UnitState/MoveState.h"
 #include "UnitState/AttackState.h"
 #include "UnitsAttributes.h"
+#include "Animation.h"
+#include "CharacterActions.h"
 
 typedef std::unique_ptr<AttackState> attackState;
 typedef std::unique_ptr<MoveState> moveState;
@@ -24,7 +26,7 @@ class ArenaUnit : public GameObject
 	state m_next;
 
 	std::string m_name;
-
+	Animation m_animation;
 public:
 
 	ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatState& combat);

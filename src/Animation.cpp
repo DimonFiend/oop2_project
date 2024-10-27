@@ -10,7 +10,7 @@ Animation::Animation(const AnimationData& data, CharacterActions action, sf::Spr
     update();
 }
 
-void Animation::direction(CharacterActions action)
+void Animation::action(CharacterActions action)
 {
     if (m_dir == action)
     {

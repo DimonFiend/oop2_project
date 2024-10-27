@@ -23,9 +23,11 @@ BuyingState::BuyingState(GameController& game, sf::RenderWindow& window, GameDat
 		std::bind(&SwitchToFightState::execute, std::make_shared<SwitchToFightState>(game, window, data)))
 {}	
 
-void BuyingState::update(const float)
+void BuyingState::update(const float dt) 
 {
 	updateMousePressed();
+	m_inventory.update(dt);
+	m_shop.update(dt);
 }
 
 void BuyingState::draw()

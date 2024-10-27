@@ -4,7 +4,8 @@
 
 ArenaUnit::ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatState& combat)
 	: m_toChange(true), m_next(Move), m_currentState(nullptr), m_leftTeam(true),
-	m_name(attributes->getName())
+	m_name(attributes->getName()),
+	m_animation(Resources::getAnimation(m_name),CharacterActions::Walk, getSprite())
 {
 	getSprite().setTexture(Resources::Instance().getTexture(m_name));
 	getSprite().setTextureRect(sf::IntRect(0, 0, 80, 80));
@@ -26,6 +27,7 @@ void ArenaUnit::update(const float dt)
 	{
 		switchState(m_next);
 	}
+	m_animation.update(sf::seconds(dt));
 }
 
 void ArenaUnit::switchState(const state s)
@@ -36,9 +38,11 @@ void ArenaUnit::switchState(const state s)
 	{
 	case Move:
 		m_currentState = m_moveState.get();
+		m_animation.action(CharacterActions::Walk);
 		break;
 	case Attack:
 		//m_currentState = m_attackState.get();
+		m_animation.action(CharacterActions::BaseAttack);
 		break;
 	default:
 		break;

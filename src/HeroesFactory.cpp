@@ -5,14 +5,17 @@
 
 #include "PlayStates/CombatState.h"
 
+#include <random>
+#include <iterator>
+
 std::unique_ptr<ArenaUnit> HeroFactory::createFightStateHero(const std::string& name, const sf::Vector2f& pos, CombatState& combat)
 {
 	return std::make_unique<ArenaUnit>(std::move(getAttribute(name)), pos, combat);
 }
 
-std::unique_ptr<BuyingStateUnit> HeroFactory::createBuyingPhaseHero(const std::string& name, const sf::Vector2f& pos)
+std::unique_ptr<BuyingStateUnit> HeroFactory::createBuyingPhaseHero(const sf::Vector2f& pos)
 {
-	return std::make_unique<BuyingStateUnit>(std::move(getAttribute(name)), pos);
+	return std::make_unique<BuyingStateUnit>(std::move(getRandomeAttribute()), pos);
 }
 
 bool HeroFactory::registerit(const std::string& name, objFunction f)
@@ -33,5 +36,20 @@ std::unique_ptr<UnitsAttributes> HeroFactory::getAttribute(const std::string& na
 	auto it = getMap().find(name);
 	if (it == getMap().end())
 		throw std::invalid_argument("Unknown object type");
+	return it->second();
+}
+
+std::unique_ptr<UnitsAttributes> HeroFactory::getRandomeAttribute()
+{
+	auto it = getMap().begin();
+
+	// Static random generator initialization for efficiency
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(0, getMap().size() - 1);
+
+	// Get random index
+	int randomIndex = dis(gen);
+	std::advance(it, randomIndex);
 	return it->second();
 }

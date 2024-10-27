@@ -27,14 +27,14 @@ protected:
 	void setAttackRange(unsigned int attackRange);
 	void setName(const std::string& name);
 
-	std::unique_ptr<MoveState> m_moveState;
+	std::unique_ptr<MoveState> m_moveState = nullptr;
 
 private:
-	unsigned int m_attack;
-	unsigned int m_health;
-	unsigned int m_speed;
-	unsigned int m_cost;
-	unsigned int m_attackRange;
+	unsigned int m_attack = 0;
+	unsigned int m_health = 0;
+	unsigned int m_speed = 0;
+	unsigned int m_cost = 0;
+	unsigned int m_attackRange = 0;
 	std::string m_name;
 
 	

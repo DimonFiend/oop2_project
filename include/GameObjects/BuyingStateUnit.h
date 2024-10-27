@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "UnitsData/UnitsAttributes.h"
-
+#include "Animation.h"
 typedef std::unique_ptr<UnitsAttributes> unitAttributes;
 
 class BuyingStateUnit : public GameObject {
@@ -11,6 +11,7 @@ private:
 	sf::Vector2i m_indexOnBoard;
 	unsigned int m_cost;
 	std::string m_name;
+	Animation m_animation;
 public:
 
 	BuyingStateUnit(unitAttributes attributes, const sf::Vector2f& pos);
@@ -23,6 +24,7 @@ public:
 	void initPos() { getSprite().setPosition(m_initPos); };
 	void setInitPos(const sf::Vector2f& pos) { m_initPos = pos; };
 	void setIndex(const sf::Vector2i& point);
+	void update(const float dtTime);
 
 	sf::Vector2i getIndex() const;
 };

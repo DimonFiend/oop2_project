@@ -36,18 +36,22 @@ void Shop::handleClick(sf::Vector2f mousePos, Player* player)
 	}
 }
 
-void Shop::generateHeroes() {
+void Shop::update(const float dtTime)
+{
+    if (!m_visible) { return; };
+	for (int i = 0; i < m_heroesShop.size(); i++)
+	{
+		if (m_heroesShop[i])
+		{
+			m_heroesShop[i]->update(dtTime);
+		}
+	}
+}
+
+void Shop::generateHeroes()
+{
     for (int i = 0; i < m_heroesShop.size(); i++)
     {
-        int random = rand() % 2;
-
-        if (random % 2 == 0)
-        {
-            m_heroesShop[i] = std::move(HeroFactory::createBuyingPhaseHero("Sorcerer", m_shopUI[i]));
-        }
-        else
-        {
-            m_heroesShop[i] = std::move(HeroFactory::createBuyingPhaseHero("Dennis", m_shopUI[i]));
-        }
+        m_heroesShop[i] = std::move(HeroFactory::createBuyingPhaseHero(m_shopUI[i]));
     }
 }

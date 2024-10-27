@@ -11,7 +11,7 @@ public:
     Animation(const AnimationData& data, CharacterActions action, sf::Sprite& sprite);
 
     // Set the direction; the sprite will take the relevant texture rect
-    void direction(CharacterActions dir);
+    void action(CharacterActions action);
 
     // Add more time to the elapsed time; if enough time passed, it
     // updates the sprite to show the next frame in the animation

@@ -23,7 +23,7 @@ public:
 	void placeUnit(const sf::Vector2f& point, BoardUI& board);
 	int getBoardMaxCap() const { return m_boardMaxCapacity; };
 	void placeInBoard(std::unique_ptr<BuyingStateUnit> unit);
-
+	void update(const float dtTime);
 	Units& getFighers();
 
 private:

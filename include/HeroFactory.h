@@ -18,11 +18,12 @@ public:
 	using mymap = std::map<std::string, objFunction>;
 
 	static std::unique_ptr<ArenaUnit> createFightStateHero(const std::string& name, const sf::Vector2f& pos, CombatState& combat);
-	static std::unique_ptr<BuyingStateUnit> createBuyingPhaseHero(const std::string& name, const sf::Vector2f& pos);
+	static std::unique_ptr<BuyingStateUnit> createBuyingPhaseHero(const sf::Vector2f& pos);
 	static bool registerit(const std::string& name, objFunction);
 
 private:
 	static std::unique_ptr<UnitsAttributes> getAttribute(const std::string& name);
+	static std::unique_ptr<UnitsAttributes> getRandomeAttribute();
 	static mymap& getMap()
 	{
 		static mymap m_map;

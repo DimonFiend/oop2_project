@@ -88,6 +88,25 @@ void Inventory::placeInBoard(std::unique_ptr<BuyingStateUnit> unit)
 	}
 }
 
+void Inventory::update(const float dtTime)
+{
+	for (auto& unit : m_onSide)
+	{
+		if (unit)
+		{
+			unit->update(dtTime);
+		}
+	}
+	
+	for (auto& unit : m_onBoard)
+	{
+		if (unit)
+		{
+			unit->update(dtTime);
+		}
+	}
+}
+
 Units& Inventory::getFighers()
 {
 	return m_onBoard;

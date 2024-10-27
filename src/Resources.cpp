@@ -41,3 +41,18 @@ sf::Texture& Resources::getTexture(const std::string& type)
     // Handle the case when the texture is not found
     throw std::runtime_error("Texture not found for type: " + type);
 }
+
+bool Resources::registerAnimation(const std::string& name, const AnimationData& animationData)
+{
+    auto result = getAnimationMap().emplace(name, animationData);
+    if (result.second) {return true;}
+    else{throw std::invalid_argument("Registration failed");}
+}
+
+const AnimationData& Resources::getAnimation(const std::string& name)
+{
+    auto it = getAnimationMap().find(name);
+    if (it == getAnimationMap().end())
+        throw std::invalid_argument("Unknown object type");
+    return it->second;
+}

@@ -9,7 +9,7 @@ class Player
 {
 
 public:
-	Player(const std::string& name) : m_health(Macros::PLAYER_MAX_HP), m_name(name), m_money(100) {};
+	Player(const std::string& name) : m_health(Macros::PLAYER_MAX_HP), m_name(name), m_money(15) {};
 	virtual ~Player() = default;
 
 	void SetName(const std::string name) { m_name = name; };
@@ -21,7 +21,6 @@ public:
 	const std::string getName() const { return m_name; };
 	const unsigned int getMoney() const { return m_money; };
 	unsigned int& getMoney() { return m_money; };
-
 	bool hasSpace() const;
 	bool checkContain(sf::Vector2f point);
 	void reduceInventoryCap();
