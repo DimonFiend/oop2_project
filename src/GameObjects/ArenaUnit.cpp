@@ -5,8 +5,8 @@
 ArenaUnit::ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatState& combat)
 	: m_toChange(true), m_next(Move), m_currentState(nullptr), m_leftTeam(true),
 	m_name(attributes->getName()),
-	m_animation(Resources::getAnimation(m_name),CharacterActions::Walk, getSprite())
-	m_name(attributes->getName()), m_hpBar(sf::Vector2f(pos.x - 26, pos.y - 44), attributes->getHealth())
+	m_animation(Resources::getAnimation(m_name),CharacterActions::Walk, getSprite()),
+	m_hpBar(sf::Vector2f(pos.x - 26, pos.y - 44), attributes->getHealth())
 {
 	getSprite().setTexture(Resources::Instance().getTexture(m_name));
 	getSprite().setTextureRect(sf::IntRect(0, 0, 80, 80));
