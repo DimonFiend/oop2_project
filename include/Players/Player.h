@@ -20,6 +20,7 @@ public:
 	int& getHealth() { return m_health; };
 	const std::string getName() const { return m_name; };
 	const unsigned int getMoney() const { return m_money; };
+	unsigned int& getMoney() { return m_money; };
 
 	bool hasSpace() const;
 	bool checkContain(sf::Vector2f point);

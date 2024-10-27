@@ -32,7 +32,7 @@ void UnitsAttributes::setSpeed(unsigned int speed)
 
 void UnitsAttributes::setCost(unsigned int cost)
 {
-	if (cost <= 0)
+	if (cost < 0)
 	{
 		throw std::invalid_argument("Unit Cost must be a positive number");
 	}

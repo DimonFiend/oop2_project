@@ -1,0 +1,40 @@
+#include "Animation.h"
+
+#include "Resources.h"
+
+const auto AnimationTime = sf::seconds(0.3f);
+
+Animation::Animation(const AnimationData& data, CharacterActions action, sf::Sprite& sprite)
+    : m_data(data), m_dir(action), m_sprite(sprite)
+{
+    update();
+}
+
+void Animation::direction(CharacterActions action)
+{
+    if (m_dir == action)
+    {
+        return;
+    }
+
+    m_dir = action;
+
+    update();
+}
+
+void Animation::update(sf::Time delta)
+{
+    m_elapsed += delta;
+    if (m_elapsed >= AnimationTime)
+    {
+        m_elapsed -= AnimationTime;
+        ++m_index;
+        m_index %= m_data.m_data.find(m_dir)->second.size();
+        update();
+    }
+}
+
+void Animation::update()
+{
+    m_sprite.setTextureRect(m_data.m_data.find(m_dir)->second[m_index]);
+}

@@ -43,7 +43,7 @@ void Shop::generateHeroes() {
 
         if (random % 2 == 0)
         {
-            m_heroesShop[i] = std::move(HeroFactory::createBuyingPhaseHero("Davis", m_shopUI[i]));
+            m_heroesShop[i] = std::move(HeroFactory::createBuyingPhaseHero("Sorcerer", m_shopUI[i]));
         }
         else
         {
