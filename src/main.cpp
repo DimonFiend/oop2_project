@@ -4,6 +4,7 @@
 
 int main()
 {
+    srand(time(0));
     try
     {
         GameEngine game;
