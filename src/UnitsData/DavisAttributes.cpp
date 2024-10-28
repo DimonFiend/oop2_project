@@ -7,7 +7,7 @@ DavisAttributes::DavisAttributes()
 {
 	setAttack(10);
 	setHealth(70);
-	setSpeed(5);
+	setSpeed(15);
 	setCost(3);
 	setAttackRange(1);
 	setName("Davis");

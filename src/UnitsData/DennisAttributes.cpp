@@ -7,7 +7,7 @@ DennisAttributes::DennisAttributes()
 {
 	setAttack(8);
 	setHealth(110);
-	setSpeed(6);
+	setSpeed(18);
 	setCost(4);
 	setAttackRange(1);
 	setName("Dennis");

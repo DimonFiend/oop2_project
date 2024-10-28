@@ -7,7 +7,7 @@ SorcererAttributes::SorcererAttributes()
 {
 	setAttack(5);
 	setHealth(40);
-	setSpeed(3);
+	setSpeed(9);
 	setCost(0);
 	setAttackRange(2);
 	setName("Sorcerer");

@@ -12,10 +12,11 @@ public:
 	BoardUI* getBoard() const { return m_board.get(); };
 	BuyingStateUnit* getSelected() { return m_selected; };
 	ComputerVector& getComputerPlayers() { return m_computerPlayers; };
-
+	const int getRoundCount() const {return m_roundCount;};
 private:
 	std::unique_ptr<HumanPlayer> m_player;
 	ComputerVector m_computerPlayers;
 	BuyingStateUnit* m_selected;
 	std::unique_ptr<BoardUI> m_board;
+	int m_roundCount;
 };

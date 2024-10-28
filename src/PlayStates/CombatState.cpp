@@ -11,6 +11,7 @@ CombatState::CombatState(Player& player1, Player& player2, BoardUI& board)
 	initPlayerOne(player1, m_player1);
 	initPlayerTwo(player2, m_player2);
 	setOnEnterText(player1, player2);
+	//Player 2 can be null (when there is odd number of players), should be auto win
 }
 
 void CombatState::update(const float dt)

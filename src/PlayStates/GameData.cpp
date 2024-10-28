@@ -4,7 +4,7 @@
 #include "Settings.h"
 #include "macros.h"
 GameData::GameData()
-	:m_selected(nullptr)
+	:m_selected(nullptr), m_roundCount(0)
 {
 	m_player = std::make_unique<HumanPlayer>("Hui");
 	m_board = std::make_unique<BoardUI>(sf::Vector2f{ static_cast<float>(Settings::Instance().getWidth()) / 3.5f,
