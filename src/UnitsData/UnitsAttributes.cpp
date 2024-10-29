@@ -8,7 +8,7 @@ void UnitsAttributes::setAttack(unsigned int attack)
 		throw std::invalid_argument("Unit Attack must be a positive number");
 	}
 
-	m_attack = attack;
+	m_attributes.m_attack = attack;
 }
 
 void UnitsAttributes::setHealth(unsigned int health)
@@ -17,27 +17,22 @@ void UnitsAttributes::setHealth(unsigned int health)
 	{
 		throw std::invalid_argument("Unit Health must be a positive number");
 	}
-	m_health = health;
+	m_attributes.m_health = health;
 }
 
 void UnitsAttributes::setSpeed(unsigned int speed)
 {
-	if (speed < 0)
-	{
-		throw std::invalid_argument("Unit Speed must be a positive number");
-	}
-
-	m_speed = speed;
+	m_attributes.m_speed = speed;
 }
 
 void UnitsAttributes::setCost(unsigned int cost)
 {
-	if (cost < 0)
+	if (cost > 15 || cost == 0)
 	{
-		throw std::invalid_argument("Unit Cost must be a positive number");
+		throw std::invalid_argument("Unit Cost must be between 1-15");
 	}
 
-	m_cost = cost;
+	m_attributes.m_cost = cost;
 }
 
 void UnitsAttributes::setAttackRange(unsigned int attackRange)
@@ -46,6 +41,7 @@ void UnitsAttributes::setAttackRange(unsigned int attackRange)
 	{
 		throw std::invalid_argument("Unit Attack Range must be a positive number");
 	}
+	m_attributes.m_attackRange = attackRange;
 }
 
 void UnitsAttributes::setName(const std::string& name)
@@ -60,38 +56,33 @@ void UnitsAttributes::setName(const std::string& name)
 
 const unsigned int UnitsAttributes::getAttack() const
 {
-	return m_attack;
+	return m_attributes.m_attack;
 }
 
 const unsigned int UnitsAttributes::getHealth() const
 {
-	return m_health;
+	return m_attributes.m_health;
 }
 
 const unsigned int UnitsAttributes::getSpeed() const
 {
-	return m_speed;
+	return m_attributes.m_speed;
 }
 
 const unsigned int UnitsAttributes::getCost() const
 {
-	return m_cost;
+	return m_attributes.m_cost;
 }
 
 const unsigned int UnitsAttributes::getAttackRange() const
 {
-	return m_attackRange;
+	return m_attributes.m_attackRange;
 }
 
 const std::string UnitsAttributes::getName() const
 {
 	return m_name;
 }
-
-//std::unique_ptr<UnitsAttributes> UnitsAttributes::clone()
-//{
-//	return std::make_unique<UnitsAttributes>(*this);
-//}
 
 std::unique_ptr<MoveState> UnitsAttributes::getMoveState()
 {

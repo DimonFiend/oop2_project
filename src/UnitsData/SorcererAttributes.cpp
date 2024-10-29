@@ -7,9 +7,9 @@ SorcererAttributes::SorcererAttributes()
 {
 	setAttack(5);
 	setHealth(40);
-	setSpeed(9);
-	setCost(0);
-	setAttackRange(2);
+	setSpeed(22);
+	setCost(4);
+	setAttackRange(220);
 	setName("Sorcerer");
     m_moveState = std::make_unique<MoveToClosest>(getSpeed());
 }

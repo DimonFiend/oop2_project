@@ -13,7 +13,7 @@ typedef std::unique_ptr<UnitsAttributes> unitAttributes;
 
 enum state
 {
-	Move, Attack
+	Move, Attack, Idle
 };
 
 class ArenaUnit : public GameObject
@@ -29,6 +29,7 @@ class ArenaUnit : public GameObject
 	std::string m_name;
 	HpBar m_hpBar;
 
+	const Attributes m_attributes;
 	Animation m_animation;
 public:
 
@@ -39,10 +40,11 @@ public:
 	void switchState(const state s);
 	void requestSwitchState(const state s);
 
-	void flipUnit() { getSprite().setScale(-1, 1); };
-	void flipTeam() { m_leftTeam = false; }
+	void flipUnit();
+	void flipTeam() { m_leftTeam = !m_leftTeam; }
 
 	bool getTeam() const { return m_leftTeam; }
 
 	void move(const sf::Vector2f direction);
+	unsigned int getAttackRange() const { return m_attributes.m_attackRange; };
 };

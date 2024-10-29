@@ -6,7 +6,8 @@ ArenaUnit::ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatS
 	: m_toChange(true), m_next(Move), m_currentState(nullptr), m_leftTeam(true),
 	m_name(attributes->getName()),
 	m_animation(Resources::getAnimation(m_name),CharacterActions::Walk, getSprite()),
-	m_hpBar(sf::Vector2f(pos.x - 26, pos.y - 44), attributes->getHealth())
+	m_hpBar(sf::Vector2f(pos.x - 26, pos.y - 44), attributes->getHealth()),
+	m_attributes(attributes->getAttributes())
 {
 	getSprite().setTexture(Resources::Instance().getTexture(m_name));
 	getSprite().setTextureRect(sf::IntRect(0, 0, 80, 80));
@@ -52,6 +53,7 @@ void ArenaUnit::switchState(const state s)
 		m_animation.action(CharacterActions::BaseAttack);
 		break;
 	default:
+		m_animation.action(CharacterActions::Idle);
 		break;
 	}
 
@@ -63,6 +65,12 @@ void ArenaUnit::requestSwitchState(const state s)
 {
 	m_toChange = true;
 	m_next = s;
+}
+
+void ArenaUnit::flipUnit()
+{
+	auto scale = getSprite().getScale();
+	getSprite().setScale(scale.x * (-1), 1);
 }
 
 void ArenaUnit::move(const sf::Vector2f direction)

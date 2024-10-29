@@ -7,9 +7,9 @@ DavisAttributes::DavisAttributes()
 {
 	setAttack(10);
 	setHealth(70);
-	setSpeed(15);
+	setSpeed(30);
 	setCost(3);
-	setAttackRange(1);
+	setAttackRange(30);
 	setName("Davis");
 	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
 }

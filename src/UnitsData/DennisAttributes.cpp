@@ -7,9 +7,9 @@ DennisAttributes::DennisAttributes()
 {
 	setAttack(8);
 	setHealth(110);
-	setSpeed(18);
+	setSpeed(36);
 	setCost(4);
-	setAttackRange(1);
+	setAttackRange(30);
 	setName("Dennis");
 	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
 }

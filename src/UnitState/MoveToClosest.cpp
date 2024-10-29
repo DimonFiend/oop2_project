@@ -10,20 +10,27 @@ MoveToClosest::MoveToClosest(const float speed)
 
 void MoveToClosest::update(const float dt)
 {
-	if (!m_target) return;
+	if (!m_target)
+	{
+		m_unit->requestSwitchState(state::Idle);
+		return;
+	}
 
 	auto& pos1 = m_unit->getPosition();
 	auto& pos2 = m_target->getPosition();
 
 	sf::Vector2f vec((pos2.x - pos1.x), (pos2.y - pos1.y));
-	float mag = std::sqrt(std::pow(pos2.x - pos1.x, 2) + std::pow(pos2.y - pos1.y, 2));
+	float mag = std::sqrt(std::pow(vec.x, 2) + std::pow(vec.y, 2));
 	
-	vec.x /= mag;
-	vec.y /= mag;
+	if (mag <= m_unit->getAttackRange())
+	{
+		// Stop moving if within attack range
+		m_unit->requestSwitchState(state::Idle); //attack
+		return;
+	}
 
-	vec.x *= dt * m_speed;
-	vec.y *= dt * m_speed;
-
+	vec /= mag;
+	vec *= dt * m_speed;
 	m_unit->move(vec);
 }
 
