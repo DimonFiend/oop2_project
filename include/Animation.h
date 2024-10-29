@@ -12,6 +12,7 @@ public:
 
     // Set the direction; the sprite will take the relevant texture rect
     void action(CharacterActions action);
+    void playOnce(CharacterActions action);
 
     // Add more time to the elapsed time; if enough time passed, it
     // updates the sprite to show the next frame in the animation
@@ -25,6 +26,12 @@ private:
     const AnimationData& m_data;
     sf::Time m_elapsed = {};
     CharacterActions m_dir = CharacterActions::Idle;
+    CharacterActions m_nextAction = CharacterActions::Idle;
     int m_index = 0;
+    bool m_playOnce;
+    bool m_isPlayingOnce;
+    bool m_hasQueuedAction;
     sf::Sprite& m_sprite;
+
+    void switchQueuedAction();
 };

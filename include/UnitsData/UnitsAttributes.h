@@ -3,6 +3,7 @@
 #include <memory>
 #include "HeroFactory.h"
 #include "UnitState/MoveState.h"
+#include "UnitState/AttackState.h"
 
 struct Attributes
 {
@@ -11,6 +12,7 @@ struct Attributes
 	unsigned int m_speed = 0;
 	unsigned int m_cost = 0;
 	unsigned int m_attackRange = 0;
+	float m_attackSpeed = 0;
 };
 
 class UnitsAttributes {
@@ -26,21 +28,24 @@ protected:
 	void setCost(unsigned int cost);
 	void setAttackRange(unsigned int attackRange);
 	void setName(const std::string& name);
-
+	void setAttackSpeed(float attSpeed);
 	std::unique_ptr<MoveState> m_moveState = nullptr;
+	std::unique_ptr<AttackState> m_attackState = nullptr;
 
 
 public:
 	UnitsAttributes() = default;
 	virtual ~UnitsAttributes() = default;
 
-	virtual const unsigned int getAttack() const;
-	virtual const unsigned int getHealth() const;
-	virtual const unsigned int getSpeed() const;
-	virtual const unsigned int getCost() const;
-	virtual const unsigned int getAttackRange() const;
-	virtual const std::string getName() const;
+	const unsigned int getAttack() const;
+	const unsigned int getHealth() const;
+	const unsigned int getSpeed() const;		
+	const unsigned int getCost() const;
+	const unsigned int getAttackRange() const;
+	const float getAttackSpeed() const;
+	const std::string getName() const;
 	const Attributes getAttributes() const { return m_attributes; };
 
 	std::unique_ptr<MoveState> getMoveState();
+	std::unique_ptr<AttackState> getAttackState();
 };

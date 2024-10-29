@@ -2,7 +2,7 @@
 #include "HeroFactory.h"
 #include "UnitState/MoveToClosest.h"
 #include "Resources.h"
-
+#include "UnitState/MeleeAttack.h"
 DennisAttributes::DennisAttributes()
 {
 	setAttack(8);
@@ -10,8 +10,10 @@ DennisAttributes::DennisAttributes()
 	setSpeed(36);
 	setCost(4);
 	setAttackRange(30);
+	setAttackSpeed(2);
 	setName("Dennis");
 	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
+	m_attackState = std::make_unique<MeleeAttack>(getAttackSpeed());
 }
 
 bool DennisAttributes::m_bool_init = HeroFactory::registerit("Dennis",
@@ -38,6 +40,12 @@ static AnimationData DennisAnimation()
 	dennis.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
 	dennis.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
 	dennis.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
+
+	currentStart = sf::Vector2i(320, 80);
+	dennis.m_data[CharacterActions::BaseAttack].emplace_back(currentStart, size);
+	dennis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+	dennis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+	dennis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
 
     return dennis;
 }

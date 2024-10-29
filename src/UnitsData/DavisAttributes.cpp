@@ -2,6 +2,7 @@
 #include "HeroFactory.h"
 #include "UnitState/MoveToClosest.h"
 #include "Resources.h"
+#include "UnitState/MeleeAttack.h"
 
 DavisAttributes::DavisAttributes()
 {
@@ -10,8 +11,10 @@ DavisAttributes::DavisAttributes()
 	setSpeed(30);
 	setCost(3);
 	setAttackRange(30);
+	setAttackSpeed(3);
 	setName("Davis");
 	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
+	m_attackState = std::make_unique<MeleeAttack>(getAttackSpeed());
 }
 
 bool DavisAttributes::m_bool_init = HeroFactory::registerit("Davis",
@@ -38,6 +41,12 @@ static AnimationData DavisAnimation()
 	davis.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
 	davis.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
 	davis.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
+
+	currentStart = sf::Vector2i(320, 80);
+	davis.m_data[CharacterActions::BaseAttack].emplace_back(currentStart, size);
+	davis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+	davis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+	davis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
     return davis;
 }
 

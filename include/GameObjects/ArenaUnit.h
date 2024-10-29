@@ -20,6 +20,8 @@ class ArenaUnit : public GameObject
 {
 	//attackState m_attackState;
 	moveState m_moveState;
+	attackState m_attackState;
+
 	UnitState* m_currentState;
 
 	bool m_leftTeam;

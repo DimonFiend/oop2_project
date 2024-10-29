@@ -4,9 +4,9 @@
 
 class Projectile : public GameObject{
 public:
-	Projectile(ArenaUnit& target);
+	//Projectile(ArenaUnit& target);
 	//~Projectile() play sound on destruction
-	void update(float dtTime);
+	//void update(float dtTime);
 
 private:
 	bool m_hit;

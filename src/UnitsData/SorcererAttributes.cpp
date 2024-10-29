@@ -2,6 +2,7 @@
 #include "HeroFactory.h"
 #include "Resources.h"
 #include "UnitState/MoveToClosest.h"
+#include "UnitState/MeleeAttack.h"
 
 SorcererAttributes::SorcererAttributes()
 {
@@ -10,8 +11,10 @@ SorcererAttributes::SorcererAttributes()
 	setSpeed(22);
 	setCost(4);
 	setAttackRange(220);
+    setAttackSpeed(3.5);
 	setName("Sorcerer");
     m_moveState = std::make_unique<MoveToClosest>(getSpeed());
+    m_attackState = std::make_unique<MeleeAttack>(getAttackSpeed());
 }
 
 bool SorcererAttributes::m_bool_init = HeroFactory::registerit("Sorcerer",
@@ -38,6 +41,12 @@ static AnimationData SorcererAnimation()
     sorcerer.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
     sorcerer.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
     sorcerer.m_data[CharacterActions::Walk].emplace_back(nextStart(), size);
+
+    currentStart = sf::Vector2i(0, 800);
+    sorcerer.m_data[CharacterActions::BaseAttack].emplace_back(currentStart, size);
+    sorcerer.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+    sorcerer.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+    sorcerer.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
     return sorcerer;
 }
 

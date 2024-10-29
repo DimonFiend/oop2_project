@@ -10,6 +10,7 @@ MoveToClosest::MoveToClosest(const float speed)
 
 void MoveToClosest::update(const float dt)
 {
+	FindTarget();
 	if (!m_target)
 	{
 		m_unit->requestSwitchState(state::Idle);
@@ -25,7 +26,7 @@ void MoveToClosest::update(const float dt)
 	if (mag <= m_unit->getAttackRange())
 	{
 		// Stop moving if within attack range
-		m_unit->requestSwitchState(state::Idle); //attack
+		m_unit->requestSwitchState(state::Attack); //attack
 		return;
 	}
 
@@ -63,6 +64,10 @@ void MoveToClosest::FindTarget()
 	if (index >= 0)
 	{
 		m_target = potentialTargets[index].get();
+	}
+	else
+	{
+		m_unit->requestSwitchState(state::Idle);
 	}
 }
 

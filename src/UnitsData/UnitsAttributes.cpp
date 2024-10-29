@@ -54,6 +54,17 @@ void UnitsAttributes::setName(const std::string& name)
 	m_name = name;
 }
 
+void UnitsAttributes::setAttackSpeed(float attSpeed)
+{
+	//sets character attack speed in seconds
+	if (attSpeed > 10 || attSpeed <= 0)
+	{
+		throw std::invalid_argument("Units attack speed should be between 0 and 10");
+	}
+
+	m_attributes.m_attackSpeed = attSpeed;
+}
+
 const unsigned int UnitsAttributes::getAttack() const
 {
 	return m_attributes.m_attack;
@@ -79,6 +90,11 @@ const unsigned int UnitsAttributes::getAttackRange() const
 	return m_attributes.m_attackRange;
 }
 
+const float UnitsAttributes::getAttackSpeed() const
+{
+	return m_attributes.m_attackSpeed;
+}
+
 const std::string UnitsAttributes::getName() const
 {
 	return m_name;
@@ -87,6 +103,11 @@ const std::string UnitsAttributes::getName() const
 std::unique_ptr<MoveState> UnitsAttributes::getMoveState()
 {
 	return std::move(m_moveState);
+}
+
+std::unique_ptr<AttackState> UnitsAttributes::getAttackState()
+{
+	return std::move(m_attackState);
 }
 
 

@@ -16,9 +16,13 @@ ArenaUnit::ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatS
 	getSprite().setPosition(pos);
 
 	m_moveState = attributes->getMoveState();
+	m_attackState = attributes->getAttackState();
 
 	m_moveState->setManager(combat);
+	m_attackState->setManager(combat);
+
 	m_moveState->setUnit(*this);
+	m_attackState->setUnit(*this);
 }
 
 void ArenaUnit::draw(sf::RenderWindow& window)
@@ -49,8 +53,8 @@ void ArenaUnit::switchState(const state s)
 		m_animation.action(CharacterActions::Walk);
 		break;
 	case Attack:
-		//m_currentState = m_attackState.get();
-		m_animation.action(CharacterActions::BaseAttack);
+		m_currentState = m_attackState.get();
+		m_animation.playOnce(CharacterActions::BaseAttack);
 		break;
 	default:
 		m_animation.action(CharacterActions::Idle);
