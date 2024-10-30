@@ -30,7 +30,7 @@ public:
 	arenaUnits& getLeftTeam();
 	arenaUnits& getRightTeam();
 
-
+	void removeDeadUnits();
 private:
 
 	void initPlayerOne(Player& p, arenaUnits& units);
@@ -42,4 +42,11 @@ private:
 	TextFader m_textTimer;
 	void setOnEnterText(const Player& p1, const Player& p2);
 	void updateTextOpacity(float dt);
+
+	struct CompareByDistance {
+		bool operator()(const std::unique_ptr<ArenaUnit>& a, const std::unique_ptr<ArenaUnit>& b) const
+		{
+			return a->getPosition().y < b->getPosition().y;
+		}
+	};
 };

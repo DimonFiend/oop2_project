@@ -6,11 +6,12 @@
 #include <cmath>
 
 MoveToClosest::MoveToClosest(const float speed)
-	: MoveState(speed), m_target(nullptr) {}
+	: MoveState(speed){}
 
 void MoveToClosest::update(const float dt)
 {
 	FindTarget();
+
 	if (!m_target)
 	{
 		m_unit->requestSwitchState(state::Idle);
@@ -37,11 +38,14 @@ void MoveToClosest::update(const float dt)
 
 void MoveToClosest::onEnter()
 {
+	m_animation->action(CharacterActions::Walk);
 	FindTarget();
 }
 
 void MoveToClosest::onExit()
 {
+	m_unit->setTarget(m_target);
+	m_target = nullptr;
 }
 
 void MoveToClosest::FindTarget()
@@ -53,6 +57,8 @@ void MoveToClosest::FindTarget()
 
 	for (int i = 0; i < potentialTargets.size(); i++)
 	{
+		if(!potentialTargets[i]->isAlive()) continue;
+
 		float temp = calcDistance(potentialTargets[i].get());
 		if (temp < maxDist)
 		{

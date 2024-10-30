@@ -6,5 +6,5 @@ enum class CharacterActions
 	Walk,
 	BaseAttack,
 	Ability,
-	Die
+	Death
 };

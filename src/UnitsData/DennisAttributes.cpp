@@ -7,9 +7,9 @@ DennisAttributes::DennisAttributes()
 {
 	setAttack(8);
 	setHealth(110);
-	setSpeed(36);
+	setSpeed(45);
 	setCost(4);
-	setAttackRange(30);
+	setAttackRange(60);
 	setAttackSpeed(2);
 	setName("Dennis");
 	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
@@ -47,6 +47,12 @@ static AnimationData DennisAnimation()
 	dennis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
 	dennis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
 
+	currentStart = sf::Vector2i(0, 320);
+	dennis.m_data[CharacterActions::Death].emplace_back(currentStart, size);
+	dennis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+	dennis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+	dennis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+	dennis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
     return dennis;
 }
 

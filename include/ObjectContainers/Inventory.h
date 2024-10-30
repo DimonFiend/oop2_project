@@ -3,7 +3,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <utility>
-#include "BuyingStateUnit.h"
+#include "GameObjects/BuyingStateUnit.h"
 #include "PlayerInventoryUI.h"
 #include "array"
 #include "typedefs.h"

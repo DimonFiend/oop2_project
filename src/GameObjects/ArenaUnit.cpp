@@ -7,7 +7,8 @@ ArenaUnit::ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatS
 	m_name(attributes->getName()),
 	m_animation(Resources::getAnimation(m_name),CharacterActions::Walk, getSprite()),
 	m_hpBar(sf::Vector2f(pos.x - 26, pos.y - 44), attributes->getHealth()),
-	m_attributes(attributes->getAttributes())
+	m_attributes(attributes->getAttributes()),
+	m_target(nullptr)
 {
 	getSprite().setTexture(Resources::Instance().getTexture(m_name));
 	getSprite().setTextureRect(sf::IntRect(0, 0, 80, 80));
@@ -23,23 +24,28 @@ ArenaUnit::ArenaUnit(unitAttributes attributes, const sf::Vector2f& pos, CombatS
 
 	m_moveState->setUnit(*this);
 	m_attackState->setUnit(*this);
+	
+	m_moveState->setAnimation(m_animation);
+	m_attackState->setAnimation(m_animation);
 }
 
 void ArenaUnit::draw(sf::RenderWindow& window)
 {
-	m_hpBar.draw(window);
+	if(this->isAlive()) m_hpBar.draw(window);
+
 	GameObject::draw(window);
 }
 
 void ArenaUnit::update(const float dt)
 {
+	m_animation.update(sf::seconds(dt));
+
 	if (m_currentState) m_currentState->update(dt);
 
 	if (m_toChange)
 	{
 		switchState(m_next);
 	}
-	m_animation.update(sf::seconds(dt));
 }
 
 void ArenaUnit::switchState(const state s)
@@ -50,19 +56,23 @@ void ArenaUnit::switchState(const state s)
 	{
 	case Move:
 		m_currentState = m_moveState.get();
-		m_animation.action(CharacterActions::Walk);
 		break;
 	case Attack:
 		m_currentState = m_attackState.get();
-		m_animation.playOnce(CharacterActions::BaseAttack);
+		break;
+	case Death:
+		m_currentState = nullptr;
+		m_animation.playOnce(CharacterActions::Death);
 		break;
 	default:
+		m_currentState = nullptr;
 		m_animation.action(CharacterActions::Idle);
 		break;
 	}
 
 	m_toChange = false;
-	m_currentState->onEnter();
+
+	if(m_currentState) m_currentState->onEnter();
 }
 
 void ArenaUnit::requestSwitchState(const state s)
@@ -75,6 +85,12 @@ void ArenaUnit::flipUnit()
 {
 	auto scale = getSprite().getScale();
 	getSprite().setScale(scale.x * (-1), 1);
+}
+
+void ArenaUnit::changeHP(const int hp)
+{
+	m_hpBar.changeHP(hp);
+	if(!isAlive()) requestSwitchState(state::Death);
 }
 
 void ArenaUnit::move(const sf::Vector2f direction)

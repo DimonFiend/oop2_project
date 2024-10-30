@@ -8,9 +8,9 @@ DavisAttributes::DavisAttributes()
 {
 	setAttack(10);
 	setHealth(70);
-	setSpeed(30);
+	setSpeed(50);
 	setCost(3);
-	setAttackRange(30);
+	setAttackRange(70);
 	setAttackSpeed(3);
 	setName("Davis");
 	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
@@ -47,6 +47,13 @@ static AnimationData DavisAnimation()
 	davis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
 	davis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
 	davis.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+
+	currentStart = sf::Vector2i(0, 320);
+	davis.m_data[CharacterActions::Death].emplace_back(currentStart, size);
+	davis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+	davis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+	davis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+	davis.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
     return davis;
 }
 

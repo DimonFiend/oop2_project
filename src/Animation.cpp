@@ -26,7 +26,6 @@ void Animation::playOnce(CharacterActions action)
     m_dir = action;
     m_playOnce = true;
     m_isPlayingOnce = true;
-    m_index = 0;
     m_hasQueuedAction = false; // Clear any queued action
     update();
 }
@@ -46,6 +45,7 @@ void Animation::action(CharacterActions action)
     m_isPlayingOnce = false;  // Clear play-once tracking              
     update();
 }
+#include <iostream>
 
 void Animation::update(sf::Time delta)
 {
@@ -58,7 +58,6 @@ void Animation::update(sf::Time delta)
         // Check if animation should stop at the last frame when playing once
         if (m_playOnce && m_index >= m_data.m_data.find(m_dir)->second.size()-1)
         {
-            m_playOnce = false;
             m_isPlayingOnce = false;
             switchQueuedAction();
         }
@@ -80,11 +79,8 @@ void Animation::switchQueuedAction()
     if (m_hasQueuedAction)
     {
         m_dir = m_nextAction;
-        m_playOnce = false;
         m_index = 0;
         m_hasQueuedAction = false;
         return;
     }
-
-   m_dir = CharacterActions::Idle;
 }

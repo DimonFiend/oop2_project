@@ -59,10 +59,11 @@ void ArenaState::setPlayersCombat(GameData& matchData)
 
 void ArenaState::update(const float dt)
 { 
-	for (auto& states : m_combats)
+	/*for (auto& states : m_combats)
 	{
 		states->update(dt);
-	}
+	}*/
+    m_combats[0]->update(dt);
 }
 
 void ArenaState::draw()

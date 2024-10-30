@@ -4,6 +4,7 @@
 #include "HeroFactory.h"
 #include "Resources.h"
 #include "Settings.h"
+#include <algorithm>
 
 CombatState::CombatState(Player& player1, Player& player2, BoardUI& board)
 	: m_board(board)
@@ -15,6 +16,9 @@ CombatState::CombatState(Player& player1, Player& player2, BoardUI& board)
 
 void CombatState::update(const float dt)
 {
+	std::sort(m_player1.begin(), m_player1.end(), CompareByDistance());
+	std::sort(m_player2.begin(), m_player2.end(), CompareByDistance());
+
 	for (auto& i : m_player2)
 	{
 		i->update(dt);

@@ -34,9 +34,10 @@ void HpBar::move(sf::Vector2f direction)
 void HpBar::changeHP(const int change)
 {
 	m_currHP += change;
+	if(m_currHP < 0) m_currHP = 0;
 
 	float percent = (m_currHP / m_maxHP) * 100;
-	int newSize = (percent/100) * MAX_BAR_SIZE;
+	float newSize = (percent/100) * MAX_BAR_SIZE;
 
 	m_greenHP.setSize(sf::Vector2f(newSize, 10.0f));
 }

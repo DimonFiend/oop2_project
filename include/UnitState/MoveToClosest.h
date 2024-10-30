@@ -15,9 +15,6 @@ public:
 	void onExit() override;
 
 private:
-
 	void FindTarget();
 	float calcDistance(ArenaUnit* target);
-
-	ArenaUnit* m_target;
 };

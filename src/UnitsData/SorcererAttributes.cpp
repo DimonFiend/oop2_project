@@ -8,7 +8,7 @@ SorcererAttributes::SorcererAttributes()
 {
 	setAttack(5);
 	setHealth(40);
-	setSpeed(22);
+	setSpeed(27);
 	setCost(4);
 	setAttackRange(220);
     setAttackSpeed(3.5);
@@ -47,6 +47,13 @@ static AnimationData SorcererAnimation()
     sorcerer.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
     sorcerer.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
     sorcerer.m_data[CharacterActions::BaseAttack].emplace_back(nextStart(), size);
+
+    currentStart = sf::Vector2i(0, 320);
+    sorcerer.m_data[CharacterActions::Death].emplace_back(currentStart, size);
+    sorcerer.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+    sorcerer.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+    sorcerer.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
+    sorcerer.m_data[CharacterActions::Death].emplace_back(nextStart(), size);
     return sorcerer;
 }
 
