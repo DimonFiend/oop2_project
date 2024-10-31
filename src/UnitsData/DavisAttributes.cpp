@@ -6,12 +6,12 @@
 
 DavisAttributes::DavisAttributes()
 {
-	setAttack(10);
+	setAttack(15);
 	setHealth(70);
-	setSpeed(50);
+	setSpeed(80);
 	setCost(3);
 	setAttackRange(70);
-	setAttackSpeed(3);
+	setAttackSpeed(1.5);
 	setName("Davis");
 	m_moveState = std::make_unique<MoveToClosest>(getSpeed());
 	m_attackState = std::make_unique<MeleeAttack>(getAttackSpeed());

@@ -10,13 +10,14 @@ class ArenaState : public GameState {
 
 	sf::RenderWindow& m_window;
 	BoardUI& m_board;
+	GameData& m_matchData;
 
 	void setPlayersCombat(GameData& matchData);
+	bool roundFinished();
 public:
 	ArenaState(GameController& game, sf::RenderWindow& window, GameData& matchData);
 	virtual ~ArenaState() = default;
 	virtual void update(const float dt) override;
 	virtual void draw() override;
 	virtual void handleInput(sf::Event event) override;
-
 };

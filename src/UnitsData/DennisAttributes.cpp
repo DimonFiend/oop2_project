@@ -5,9 +5,9 @@
 #include "UnitState/MeleeAttack.h"
 DennisAttributes::DennisAttributes()
 {
-	setAttack(8);
+	setAttack(20);
 	setHealth(110);
-	setSpeed(45);
+	setSpeed(70);
 	setCost(4);
 	setAttackRange(60);
 	setAttackSpeed(2);

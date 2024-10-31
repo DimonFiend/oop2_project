@@ -59,7 +59,9 @@ void Animation::update(sf::Time delta)
         if (m_playOnce && m_index >= m_data.m_data.find(m_dir)->second.size()-1)
         {
             m_isPlayingOnce = false;
+            --m_index;
             switchQueuedAction();
+            return;
         }
         else
         {

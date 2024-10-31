@@ -34,6 +34,11 @@ void Shop::handleClick(sf::Vector2f mousePos, Player* player)
 			m_heroesShop[i] = player->makePurchase(std::move(m_heroesShop[i]));
 		}
 	}
+
+    if(m_shopUI.checkExpandButton(mousePos) && player->getMoney() > 4)
+	{
+        player->expandBoardLim();
+	}
 }
 
 void Shop::update(const float dtTime)

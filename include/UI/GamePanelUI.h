@@ -11,10 +11,14 @@ public:
 private:
 	std::unique_ptr<PanelUI> m_topPanel;
 	std::unique_ptr<PanelUI> m_bottomPanel;
-	unsigned int& m_playerMoney;
+	const unsigned int& m_playerMoney;
+	const int& m_playerBoardCap;
+	const int& m_playerMaxBoardCap;
 	sf::Sprite m_coinSprite;
 	sf::Text m_coinAmount;
+	sf::Text m_boardCap;
 
+	void setCapacityUI();
 	void updateText();
 	void setMoneyUI();
 };

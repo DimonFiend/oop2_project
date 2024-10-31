@@ -12,5 +12,5 @@ class PlayersStatusBar {
 public:
 	PlayersStatusBar(GameData& data);
 	void draw(sf::RenderWindow& window);
-	void update();
+	void eraseDead();
 };

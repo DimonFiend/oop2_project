@@ -4,11 +4,12 @@
 #include "ArenaState.h"
 #include "GameEngine.h"
 #include "Resources.h"
+#include "PlayersStatusBar.h"
 
 GameController::GameController(GameEngine& engine, sf::RenderWindow& window)
     : State(engine),
     m_window(window),
-    m_PlayersStatus(m_data),
+    m_PlayersStatus(m_data.getStatusBar()),
     m_gameUI(*m_data.getPlayer())
 {
     // Constructor implementation
@@ -43,14 +44,14 @@ void GameController::update(const float dt)
     {
         (*it)->update(dt);
     }
-    m_PlayersStatus.update();
+
 }
 
 void GameController::draw()
 {
 	m_window.draw(m_background);
 	m_gameUI.draw(m_window);
-    m_PlayersStatus.draw(m_window);
+    m_PlayersStatus->draw(m_window);
 
     for (auto it = m_state.rbegin(); it != m_state.rend(); it++)
     {

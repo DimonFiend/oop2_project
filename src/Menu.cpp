@@ -67,11 +67,6 @@ void Menu::handleInput(sf::Event event)
         }
 }
 
-void Menu::update()
-{
-    	// Nothing to update
-}
-
 void Menu::draw()
 {
     m_window.draw(m_backgroundSprite);

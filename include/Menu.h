@@ -13,8 +13,9 @@ public:
     Menu(GameEngine& engine, sf::RenderWindow& window);
     Button* getButton(size_t index);
     virtual void handleInput(sf::Event event);
-    void update();
-    void draw();
+    virtual void update(const float dt) {};
+    virtual void draw();
+    virtual void changeState() {};
 
 private:
 

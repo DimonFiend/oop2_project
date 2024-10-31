@@ -10,7 +10,7 @@ GameEngine::GameEngine()
 	sf::VideoMode mode = {Settings::Instance().getWidth(), Settings::Instance().getHeight()};
 	m_window.create(mode, "Little Auto Chess", sf::Style::Close);
 	m_window.setFramerateLimit(60);
-	m_states.push(std::make_unique<GameController>(*this, m_window));
+	m_states.push(std::make_unique<Menu>(*this, m_window));
 }
 
 void GameEngine::setState(std::unique_ptr<State> state, bool change)

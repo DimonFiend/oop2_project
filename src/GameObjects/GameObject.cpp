@@ -10,6 +10,14 @@ bool GameObject::checkContain(sf::Vector2f point)
 	return false;
 }
 
+bool GameObject::checkContain(const sf::Sprite& sprite)
+{
+	if(m_sprite.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+		return true;
+
+	return false;
+}
+
 const sf::Vector2f& GameObject::getPosition() const
 {
 	return m_sprite.getPosition();

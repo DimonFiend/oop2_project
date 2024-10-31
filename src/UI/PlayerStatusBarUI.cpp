@@ -62,6 +62,7 @@ void PlayerStatusBarUI::setPlayerHpBar()
 
 void PlayerStatusBarUI::updatePlayerHp()
 {
+	if (m_currentHealth < 0) m_currentHealth = 0;
 	float healthPrecentage = float(m_currentHealth) / float(m_maxHealth);
 	sf::Vector2f updatedSize = { m_HP_backgroundBar.getSize().x * healthPrecentage ,
 		                         m_HP_backgroundBar.getSize().y };

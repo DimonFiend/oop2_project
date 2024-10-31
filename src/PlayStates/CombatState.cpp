@@ -1,5 +1,4 @@
 #include "CombatState.h"
-#include "Player.h"
 #include <iostream>
 #include "HeroFactory.h"
 #include "Resources.h"
@@ -7,40 +6,108 @@
 #include <algorithm>
 
 CombatState::CombatState(Player& player1, Player& player2, BoardUI& board)
-	: m_board(board)
+	: m_board(board), m_player1(player1), m_player2(player2), m_finished(false)
 {
-	initPlayerOne(player1, m_player1);
-	initPlayerTwo(player2, m_player2);
-	setOnEnterText(player1, player2);
+	initPlayerOne(m_player1Units);
+	initPlayerTwo(m_player2Units);
+	setOnEnterText();
 }
 
 void CombatState::update(const float dt)
 {
-	std::sort(m_player1.begin(), m_player1.end(), CompareByDistance());
-	std::sort(m_player2.begin(), m_player2.end(), CompareByDistance());
-
-	for (auto& i : m_player2)
+	for (auto& i : m_player2Units)
 	{
 		i->update(dt);
 	}
-	for (auto& i : m_player1)
+	for (auto& i : m_player1Units)
 	{
 		i->update(dt);
 	}
 
+	processProjectiles(dt);
+
+	if (m_finished) return;
+
+	sort_timer += dt;
+	if (sort_timer > sort_interval)
+	{
+		sort_timer -= sort_interval;
+		sortForDrawing();
+	}
+	
 	if (m_textTimer.m_elapsed < m_textTimer.m_totalDuration)
 	{
 		updateTextOpacity(dt);
 	}
+
+	checkForWinner();
+}
+
+void CombatState::sortForDrawing()
+{
+	std::sort(m_player1Units.begin(), m_player1Units.end(), CompareByDistance());
+	std::sort(m_player2Units.begin(), m_player2Units.end(), CompareByDistance());
+}
+
+void CombatState::checkForWinner()
+{
+	if(!unitIsAlive(m_player1Units) && unitIsAlive(m_player2Units))
+	{
+		m_player2.onRoundFinish(5, 0);
+		m_player1.onRoundFinish(2, unitCount(m_player2Units) * 4);
+		m_finished = true;
+	}
+	else if (unitIsAlive(m_player1Units) && !unitIsAlive(m_player2Units) * 4)
+	{
+		m_player1.onRoundFinish(5, 0);
+		m_player2.onRoundFinish(2, unitCount(m_player1Units));
+
+		m_finished = true;
+	}
+	else if (!unitIsAlive(m_player1Units) && !unitIsAlive(m_player2Units) * 4)
+	{
+		m_player1.onRoundFinish(2,0);
+		m_player2.onRoundFinish(2,0);
+		m_finished = true;
+	}
+}
+
+int CombatState::unitCount(const arenaUnits& units)
+{
+	int count = 0;
+	for (auto& i : units)
+	{
+		if (i->isAlive())
+		{
+			count++;
+		}
+	}
+	return count;
+}
+
+bool CombatState::unitIsAlive(const arenaUnits& units)
+{
+	for (auto& i : units)
+	{
+		if (i->isAlive())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void CombatState::draw(sf::RenderWindow& window)
 {
-	for (auto& i : m_player2)
+	for (auto& i : m_player2Units)
 	{
 		i->draw(window);
 	}
-	for (auto& i : m_player1)
+	for (auto& i : m_player1Units)
+	{
+		i->draw(window);
+	}
+	for(auto& i : m_projectiles)
 	{
 		i->draw(window);
 	}
@@ -58,17 +125,22 @@ void CombatState::handleInput(sf::Event event)
 
 arenaUnits& CombatState::getLeftTeam()
 {
-	return m_player1;
+	return m_player1Units;
 }
 
 arenaUnits& CombatState::getRightTeam()
 {
-	return m_player2;
+	return m_player2Units;
 }
 
-void CombatState::initPlayerOne(Player& p, arenaUnits& units)
+void CombatState::addProjectile(std::unique_ptr<Projectile> projectile)
 {
-	Units& onBoard = p.getFighters();
+	m_projectiles.push_back(std::move(projectile));
+}
+
+void CombatState::initPlayerOne(arenaUnits& units)
+{
+	Units& onBoard = m_player1.getFighters();
 
 	for (auto& i : onBoard)
 	{
@@ -82,9 +154,9 @@ void CombatState::initPlayerOne(Player& p, arenaUnits& units)
 	}
 }
 
-void CombatState::initPlayerTwo(Player& p, arenaUnits& units)
+void CombatState::initPlayerTwo(arenaUnits& units)
 {
-	Units& onBoard = p.getFighters();
+	Units& onBoard = m_player2.getFighters();
 
 	for (auto& i : onBoard)
 	{
@@ -101,12 +173,22 @@ void CombatState::initPlayerTwo(Player& p, arenaUnits& units)
 	}
 }
 
-void CombatState::setOnEnterText(const Player& p1, const Player& p2)
+void CombatState::processProjectiles(const float dt)
+{
+	for (auto& i : m_projectiles)
+	{
+		i->update(dt);
+	}
+
+	std::erase_if(m_projectiles, [](const std::unique_ptr<Projectile>& projectile) { return projectile->isHit(); });
+}
+
+void CombatState::setOnEnterText()
 {
 	m_onEnterText.setFont(Resources::Instance().getFont());
 	m_onEnterText.setCharacterSize(55);
 	m_onEnterText.setOutlineThickness(3);
-	m_onEnterText.setString(p1.getName() + " V/S " + p2.getName());
+	m_onEnterText.setString(m_player1.getName() + " V/S " + m_player2.getName());
 	m_onEnterText.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	auto size = m_onEnterText.getGlobalBounds().getSize();
 	m_onEnterText.setOrigin(size.x / 2, size.y / 2);

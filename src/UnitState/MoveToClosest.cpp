@@ -70,11 +70,10 @@ void MoveToClosest::FindTarget()
 	if (index >= 0)
 	{
 		m_target = potentialTargets[index].get();
+		return;
 	}
-	else
-	{
-		m_unit->requestSwitchState(state::Idle);
-	}
+
+	m_unit->requestSwitchState(state::Idle);
 }
 
 float MoveToClosest::calcDistance(ArenaUnit* target)

@@ -18,6 +18,27 @@ std::unique_ptr<BuyingStateUnit> HeroFactory::createBuyingPhaseHero(const sf::Ve
 	return std::make_unique<BuyingStateUnit>(std::move(getRandomeAttribute()), pos);
 }
 
+std::unique_ptr<Projectile> HeroFactory::createProjectile(const std::string& name, ArenaUnit& target, const sf::Vector2f& pos, int dmg)
+{
+	auto it = getProjectileMap().find(name);
+	if (it == getProjectileMap().end())
+		throw std::invalid_argument("Unknown object type");
+
+	return getProjectileMap().find(name)->second(target, pos, dmg);
+}
+
+bool HeroFactory::registerProjectile(const std::string& name, projectileFnct fnct)
+{
+	auto result = getProjectileMap().emplace(name, fnct);
+	if (result.second) {
+		return true;
+	}
+	else
+	{
+		throw std::invalid_argument("Registration failed");
+	}
+}
+
 bool HeroFactory::registerit(const std::string& name, objFunction f)
 {
 	

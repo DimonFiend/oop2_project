@@ -13,5 +13,8 @@ Deep Deep_Hero.png
 Dennis Dennis_Hero.png
 Firen Firen_Hero.png
 Freeze Freeze_Hero.png
+Hunter Hunter_Hero.png
 Coin Gold_coin.png
 Sorcerer Sorcerer_Mob.png
+Fireball Fireball.png
+Arrow Arrow.png

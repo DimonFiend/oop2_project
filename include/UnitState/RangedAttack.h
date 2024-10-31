@@ -1,9 +1,11 @@
 #pragma once
 #include "AttackState.h"
 
-class MeleeAttack : public AttackState {
+class RangedAttack : public AttackState
+{
+	std::string m_obj;
 public:
-	MeleeAttack(float attackSpeed);
+	RangedAttack(float attackSpeed, const std::string& obj);
 	virtual void onEnter();
 	virtual void onExit();
 	virtual void Attack();

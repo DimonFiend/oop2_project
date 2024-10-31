@@ -3,8 +3,9 @@
 #include "BoardUI.h"
 #include <SFML/Graphics.hpp>
 #include "ArenaUnit.h"
+#include "Player.h"
+#include "Projectile.h"
 
-class Player;
 struct TextFader
 {
 	float m_fadeInDuration = 1.0f;   // 1 second to fade in
@@ -29,19 +30,31 @@ public:
 
 	arenaUnits& getLeftTeam();
 	arenaUnits& getRightTeam();
-
-	void removeDeadUnits();
+	bool isFinished() const { return m_finished; }
+	void addProjectile(std::unique_ptr<Projectile> projectile);
 private:
-
-	void initPlayerOne(Player& p, arenaUnits& units);
-	void initPlayerTwo(Player& p, arenaUnits& units);
+	float sort_timer = 0;
+	float sort_interval = 2.f;
+	bool m_finished = false;
 	BoardUI& m_board;
-	arenaUnits m_player1;
-	arenaUnits m_player2;
+	Player& m_player1;
+	Player& m_player2;
+	arenaUnits m_player1Units;
+	arenaUnits m_player2Units;
 	sf::Text m_onEnterText;
 	TextFader m_textTimer;
-	void setOnEnterText(const Player& p1, const Player& p2);
+	std::vector<std::unique_ptr<Projectile>> m_projectiles;
+
+	void initPlayerOne(arenaUnits& units);
+	void initPlayerTwo(arenaUnits& units);
+	
+	void processProjectiles(const float dt);
+	void setOnEnterText();
 	void updateTextOpacity(float dt);
+	void sortForDrawing();
+	void checkForWinner();
+	bool unitIsAlive(const arenaUnits& units);
+	int unitCount(const arenaUnits& units);
 
 	struct CompareByDistance {
 		bool operator()(const std::unique_ptr<ArenaUnit>& a, const std::unique_ptr<ArenaUnit>& b) const

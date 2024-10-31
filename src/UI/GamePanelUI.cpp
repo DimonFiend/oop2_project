@@ -3,11 +3,23 @@
 #include "Resources.h"
 
 GamePanelUI::GamePanelUI(Player& player) : UIElement(sf::Vector2f(0, 0)),
-	m_playerMoney(player.getMoney())
+	m_playerMoney(player.getMoney()), m_playerBoardCap(player.getCurrBoardCap()),
+	m_playerMaxBoardCap(player.getBoardCap())
 {
 	m_topPanel = std::make_unique<PanelUI>(sf::Vector2f(Settings::Instance().getWidth(), 100), sf::Vector2f(0, 0));
 	m_bottomPanel = std::make_unique<PanelUI>(sf::Vector2f(Settings::Instance().getWidth(), 125), sf::Vector2f(0, 775));
 	setMoneyUI();
+	setCapacityUI();
+}
+
+void GamePanelUI::setCapacityUI()
+{
+	auto Size = m_boardCap.getLocalBounds().getSize();
+	m_boardCap.setOrigin(Size.x / 2, Size.y / 2);
+	m_boardCap.setFont(Resources::Instance().getFont());
+	m_boardCap.setCharacterSize(30);
+	m_boardCap.setFillColor(sf::Color::Blue);
+	m_boardCap.setPosition(m_bottomPanel->getPosition().x + Size.x + 50, m_bottomPanel->getPosition().y + 50);
 }
 
 void GamePanelUI::setMoneyUI()
@@ -20,13 +32,13 @@ void GamePanelUI::setMoneyUI()
 	m_coinAmount.setFont(Resources::Instance().getFont());
 	m_coinAmount.setCharacterSize(30);
 	m_coinAmount.setFillColor(sf::Color::Blue);
-	m_coinAmount.setString(" X " + std::to_string(m_playerMoney));
 	m_coinAmount.setPosition(m_coinSprite.getPosition().x + 20, m_coinSprite.getPosition().y - 17);
 }
 
 void GamePanelUI::updateText()
 {
 	m_coinAmount.setString(" X " + std::to_string(m_playerMoney));
+	m_boardCap.setString("Board Capacity: " + std::to_string(m_playerBoardCap) + " / " + std::to_string(m_playerMaxBoardCap));
 }
 
 void GamePanelUI::draw(sf::RenderWindow& window)
@@ -36,4 +48,5 @@ void GamePanelUI::draw(sf::RenderWindow& window)
 	m_bottomPanel->draw(window);
 	window.draw(m_coinSprite);
 	window.draw(m_coinAmount);
+	window.draw(m_boardCap);
 }

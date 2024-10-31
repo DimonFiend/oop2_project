@@ -15,6 +15,21 @@ void Player::reduceInventoryCap()
 	m_inventory.reduceInventoryCap();
 }
 
+void Player::onRoundFinish(unsigned int val, int healthPenalty)
+{
+	m_money += val;
+	m_health -= healthPenalty;
+}
+
+void Player::expandBoardLim()
+{
+	if (!m_inventory.boardCapReached())
+	{
+		m_money -= 5;
+		m_inventory.expandBoardLim();
+	}
+}
+
 std::unique_ptr<BuyingStateUnit> Player::makePurchase(std::unique_ptr<BuyingStateUnit> hero)
 {
 	if(m_money >= hero->getCost() && hasSpace())

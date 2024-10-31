@@ -1,22 +1,23 @@
 #include "ArenaState.h"
 #include <algorithm>
 #include <random>
+#include "BuyingState.h"
+#include "Menu.h"
 
 ArenaState::ArenaState(GameController& gameController, sf::RenderWindow& window, GameData& matchData)
-	: GameState(gameController), m_window(window), m_board(*matchData.getBoard())
+	: GameState(gameController),
+    m_window(window), m_board(*matchData.getBoard()),
+    m_matchData(matchData)
 {
-	setPlayersCombat(matchData);
+	setPlayersCombat(m_matchData);
 }
-
-#include <vector>
-#include <memory>
-#include <algorithm>
 
 void ArenaState::setPlayersCombat(GameData& matchData)
 {
-    int roundShift = matchData.getRoundCount() + matchData.getShift();
+    int roundShift = matchData.getRoundCount();
     // Combine human player with computer players in a single vector
     std::vector<Player*> players = {&(*matchData.getPlayer())};
+
     for (auto& computer : matchData.getComputerPlayers())
     {
         players.push_back(computer.get());
@@ -36,6 +37,7 @@ void ArenaState::setPlayersCombat(GameData& matchData)
     for (int i = 0; i < numPlayers / 2; ++i)
     {
         int player1Index, player2Index;
+
         if (i == 0) {
             // Special case: Human player (fixed position) vs rotated opponent
             player1Index = i;
@@ -50,20 +52,58 @@ void ArenaState::setPlayersCombat(GameData& matchData)
         Player* player2 = players[player2Index];
 
         // Only create CombatState if both players are present
-        if (player1 && player2) {
+        if (player1 && player2)
+        {
             m_combats.push_back(std::make_unique<CombatState>(*player1, *player2, m_board));
         }
+        else if(player1)
+        {
+            player1->onRoundFinish(5, 0);
+        }
+        else
+        {
+            player2->onRoundFinish(5, 0);
+        }
     }
+}
+
+bool ArenaState::roundFinished()
+{
+    for(auto& combat : m_combats)
+	{
+		if (!combat->isFinished())
+		{
+			return false;
+		}
+	}
+
+    m_matchData.nextRound();
+    return true;
 }
 
 
 void ArenaState::update(const float dt)
 { 
-	/*for (auto& states : m_combats)
-	{
-		states->update(dt);
-	}*/
     m_combats[0]->update(dt);
+    for(int i{1}; i < m_combats.size(); i++)
+	{
+		m_combats[i]->update(dt * 100);
+	}
+
+    if(roundFinished())
+	{
+        m_matchData.clearLosers();
+        if (m_matchData.lastOpponent())
+        {
+            m_game->getEngine().setState(std::make_unique<Menu>(m_game->getEngine(), m_window), true);
+
+        }
+        else
+        {
+            m_game->setState(std::make_unique<BuyingState>(*m_game, m_window, m_matchData), true);
+
+        }
+	}
 }
 
 void ArenaState::draw()

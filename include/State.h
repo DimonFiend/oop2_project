@@ -13,7 +13,7 @@ public:
 	virtual void handleInput(sf::Event event) = 0;
 	virtual void nextState(std::unique_ptr<State> state, bool change);
 	virtual void changeState() = 0;
-
+	GameEngine& getEngine() { return m_engine; };
 public:
 	GameEngine& m_engine;
 };

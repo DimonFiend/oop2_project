@@ -2,19 +2,19 @@
 #include "HeroFactory.h"
 #include "Resources.h"
 #include "UnitState/MoveToClosest.h"
-#include "UnitState/MeleeAttack.h"
+#include "UnitState/RangedAttack.h"
 
 SorcererAttributes::SorcererAttributes()
 {
-	setAttack(5);
-	setHealth(40);
+	setAttack(20);
+	setHealth(55);
 	setSpeed(27);
 	setCost(4);
 	setAttackRange(220);
-    setAttackSpeed(3.5);
+    setAttackSpeed(3);
 	setName("Sorcerer");
     m_moveState = std::make_unique<MoveToClosest>(getSpeed());
-    m_attackState = std::make_unique<MeleeAttack>(getAttackSpeed());
+    m_attackState = std::make_unique<RangedAttack>(getAttackSpeed(), "Fireball");
 }
 
 bool SorcererAttributes::m_bool_init = HeroFactory::registerit("Sorcerer",

@@ -27,6 +27,7 @@ add_subdirectory (src/GameObjects)
 add_subdirectory (resources)
 add_subdirectory (resources/Heroes)
 add_subdirectory (resources/Mobs)
+add_subdirectory (resources/Projectiles)
 
 include (cmake/Zip.cmake)
 

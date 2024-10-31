@@ -3,8 +3,8 @@
 
 class GameController;
 class GameState {
-protected: // private??
-	GameController* m_game; // const?
+protected:
+	GameController* m_game;
 public:
 	GameState(GameController& game) : m_game(&game) {};
 	virtual ~GameState() = default;

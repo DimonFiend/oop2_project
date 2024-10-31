@@ -21,7 +21,12 @@ BuyingState::BuyingState(GameController& game, sf::RenderWindow& window, GameDat
 
 	m_readyButton("shopslot", sf::Vector2f(window.getSize().x / 2, window.getSize().y - 50),
 		std::bind(&SwitchToFightState::execute, std::make_shared<SwitchToFightState>(game, window, data)))
-{}	
+{
+	for(auto& computer : m_computerVector)
+	{
+		computer->update();
+	}
+}	
 
 void BuyingState::update(const float dt) 
 {

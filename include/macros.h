@@ -9,7 +9,7 @@ namespace Macros
 	constexpr int INIT_BOARD_CAPACITY = 3;
 	constexpr int MAX_SHOP_SLOT = 8;
 	constexpr int MAX_PC_PLAYERS = 7;
-	constexpr int PLAYER_MAX_HP = 100;
+	constexpr int PLAYER_MAX_HP = 50;
 	const sf::Vector2f BOARD_TILE_SIZE = { 80, 80 };
 	const sf::Vector2f INV_SLOT_SIZE{ 80,80 };
 }

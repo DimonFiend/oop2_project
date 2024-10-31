@@ -19,12 +19,15 @@ public:
 	int getHealth() const { return m_health;};
 	int& getHealth() { return m_health; };
 	const std::string getName() const { return m_name; };
-	const unsigned int getMoney() const { return m_money; };
-	unsigned int& getMoney() { return m_money; };
+	const unsigned int& getMoney() const { return m_money; };
 	bool hasSpace() const;
 	bool checkContain(sf::Vector2f point);
 	void reduceInventoryCap();
 
+	void onRoundFinish(unsigned int val, int healthPenalty);
+	const int& getCurrBoardCap() const { return m_inventory.getCurrBoardCap(); };
+	const int& getBoardCap() const { return m_inventory.getBoardCap(); };
+	void expandBoardLim();
 	std::unique_ptr<BuyingStateUnit> makePurchase(std::unique_ptr<BuyingStateUnit> hero);
 	Inventory& getInventory() { return m_inventory; };
 
@@ -34,5 +37,6 @@ private:
 	std::string m_name;
 	int m_health;
 	Inventory m_inventory;
+protected:
 	unsigned int m_money;
 };

@@ -3,20 +3,29 @@
 ComputerPlayer::ComputerPlayer(const std::string& name, BoardUI& board)
 	:Player(name), m_board(board)
 {
-	srand(time(0));
-	//for test
-	int maxOnBoard = getInventory().getBoardMaxCap();
-	for (int i = 0; i < maxOnBoard; i++)
-	{
-		int random = rand() % 2;
-
-		getInventory().placeInBoard(HeroFactory::createBuyingPhaseHero(board.getRandomePlacableSlot()));
-		auto pos = getInventory().getFighers()[i]->getPosition();
-		getInventory().getFighers()[i]->setIndex(board.posToIndex(pos));
-	}
 }
 
-void ComputerPlayer::setShop(std::unique_ptr<Shop> shop)
+void ComputerPlayer::update()
 {
-	m_shop = std::move(shop);
+	for (int i{ getInventory().getCurrBoardCap()}; i < getInventory().getBoardCap(); i++)
+	{
+		auto pos = m_board.getRandomePlacableSlot();
+
+		if (getInventory().checkPlacableOnBoard(pos))
+		{
+			auto hero = HeroFactory::createBuyingPhaseHero(pos);
+			if(hero->getCost() <= m_money)
+			{
+				getInventory().increaseCurrentCap();
+				m_money -= hero->getCost();
+				hero->setIndex(m_board.posToIndex(pos));
+				getInventory().placeInBoard(std::move(hero));
+			}
+		}
+	}
+
+	if(getMoney() >= 5)
+	{
+		expandBoardLim();
+	}
 }

@@ -25,7 +25,7 @@ void PlayersStatusBar::draw(sf::RenderWindow& window)
 	}
 }
 
-void PlayersStatusBar::update()
+void PlayersStatusBar::eraseDead()
 {
 	std::erase_if(m_playersStatus,
 		[](const std::unique_ptr<PlayerStatusBarUI>& bar) {return bar->isDead(); });

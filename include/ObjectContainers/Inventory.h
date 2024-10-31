@@ -21,10 +21,16 @@ public:
 	BuyingStateUnit* checkContain(const sf::Vector2f& point);
 	void addHero(std::unique_ptr<BuyingStateUnit> hero);
 	void placeUnit(const sf::Vector2f& point, BoardUI& board);
-	int getBoardMaxCap() const { return m_boardMaxCapacity; };
 	void placeInBoard(std::unique_ptr<BuyingStateUnit> unit);
 	void update(const float dtTime);
 	Units& getFighers();
+	const int& getCurrBoardCap() const { return m_boardCapacity; };
+	const int& getBoardCap() const { return m_boardMaxCapacity; };
+	void expandBoardLim();
+	bool boardCapReached() const { return m_boardCapacity == Macros::MAX_BOARD_SLOTS; };
+	bool checkPlacableOnBoard(const sf::Vector2f& point);
+
+	void increaseCurrentCap() { m_boardCapacity++; };
 
 private:
 	int m_InventoryCapacity;

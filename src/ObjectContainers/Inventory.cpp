@@ -112,6 +112,23 @@ Units& Inventory::getFighers()
 	return m_onBoard;
 }
 
+void Inventory::expandBoardLim()
+{
+	m_boardMaxCapacity++;
+}
+
+bool Inventory::checkPlacableOnBoard(const sf::Vector2f& point)
+{
+	for(auto& onBoard : m_onBoard)
+	{
+		if(onBoard && onBoard->checkContain(point))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 void Inventory::placeUnitOnBoard(const sf::Vector2f& point, BoardUI& board)
 {
 	auto index = board.posToIndex(point);

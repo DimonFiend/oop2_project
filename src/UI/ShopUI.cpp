@@ -2,11 +2,13 @@
 #include "ShopUI.h"
 #include "Tile.h"
 #include "macros.h"
+#include "Resources.h"
+
 ShopUI::ShopUI(const sf::Vector2f& position)
     : UIElement(position), m_numSlots(Macros::MAX_SHOP_SLOT)
 {
     setFrame(position);
-
+    setExpandButton();
     float frameWidth = m_frame.getSize().x;
     float slotHeight = position.y - m_frame.getSize().y / 2 + 5;
     sf::Vector2f slotSize = { frameWidth / m_numSlots - 10, m_frame.getSize().y - 10};
@@ -18,7 +20,24 @@ ShopUI::ShopUI(const sf::Vector2f& position)
         m_slots.back()->setPosition({slotPos.x + (slotSize.x / 2.f), slotPos.y + (slotSize.y / 2.f)});  // Center the sprite within the slot
     }
 }
+void ShopUI::setExpandButton()
+{
+    m_expandButton.setSize({ 100.f, 50.f });
+    m_expandButton.setOutlineThickness(2.f);
+    m_expandButton.setOutlineColor(sf::Color(0, 0, 0, 255));
+    m_expandButton.setFillColor(sf::Color::Magenta);
+    m_expandButton.setOrigin(m_expandButton.getSize().x / 2.f, m_expandButton.getSize().y / 2.f);
+    m_expandButton.setPosition(m_frame.getPosition().x, m_frame.getPosition().y + m_frame.getSize().y / 2 + 30);
 
+
+    m_expandButtonText.setFont(Resources::Instance().getFont());
+	m_expandButtonText.setString("Expand");
+	m_expandButtonText.setCharacterSize(20);
+	m_expandButtonText.setFillColor(sf::Color::Black);
+	m_expandButtonText.setOrigin(m_expandButtonText.getGlobalBounds().width / 2, m_expandButtonText.getGlobalBounds().height / 2);
+	m_expandButtonText.setPosition(m_expandButton.getPosition().x, m_expandButton.getPosition().y);
+
+}
 void ShopUI::setFrame(const sf::Vector2f pos)
 {
     m_frame.setSize({ 1100.f, 200.f });
@@ -36,6 +55,8 @@ void ShopUI::draw(sf::RenderWindow& window) {
     for (const auto& slot : m_slots) {
         slot->draw(window);
     }
+    window.draw(m_expandButton);
+    window.draw(m_expandButtonText);
 }
 
 const sf::Vector2f& ShopUI::operator[](int index) const
@@ -52,5 +73,11 @@ bool ShopUI::checkContain(const sf::Vector2f& point) const
 			return true;
 		}
 	}
+
     return false;
+}
+
+bool ShopUI::checkExpandButton(const sf::Vector2f& point) const
+{
+    return m_expandButton.getGlobalBounds().contains(point);
 }
