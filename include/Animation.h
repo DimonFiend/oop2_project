@@ -1,0 +1,37 @@
+#pragma once
+
+#include "CharacterActions.h"
+#include "AnimationData.h"
+
+#include <SFML/Graphics.hpp>
+
+class Animation
+{
+public:
+    Animation(const AnimationData& data, CharacterActions action, sf::Sprite& sprite);
+
+    // Set the direction; the sprite will take the relevant texture rect
+    void action(CharacterActions action);
+    void playOnce(CharacterActions action);
+
+    // Add more time to the elapsed time; if enough time passed, it
+    // updates the sprite to show the next frame in the animation
+    void update(sf::Time delta);
+
+private:
+    // Update the sprite to take the correct part of the texture,
+    // based on current dir and index
+    void update();
+
+    const AnimationData& m_data;
+    sf::Time m_elapsed = {};
+    CharacterActions m_dir = CharacterActions::Idle;
+    CharacterActions m_nextAction = CharacterActions::Idle;
+    int m_index = 0;
+    bool m_playOnce;
+    bool m_isPlayingOnce;
+    bool m_hasQueuedAction;
+    sf::Sprite& m_sprite;
+
+    void switchQueuedAction();
+};
