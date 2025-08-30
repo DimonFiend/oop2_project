@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.26)
 
-project (oop2_ex03)
+project (oop2_project)
 set (MY_AUTHORS "Dima_Nikonov")
 
 include (cmake/CompilerSettings.cmake)

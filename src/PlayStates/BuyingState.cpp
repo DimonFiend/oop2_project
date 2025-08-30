@@ -19,7 +19,7 @@ BuyingState::BuyingState(GameController& game, sf::RenderWindow& window, GameDat
 	m_shopButton("shopslot", sf::Vector2f(window.getSize().x - 50, window.getSize().y - 50),
 		std::bind(&ToggleShopVisibility::execute, std::make_shared<ToggleShopVisibility>(m_shop))),
 
-	m_readyButton("shopslot", sf::Vector2f(window.getSize().x / 2, window.getSize().y - 50),
+	m_readyButton("readyButton", sf::Vector2f(window.getSize().x / 2, window.getSize().y - 50),
 		std::bind(&SwitchToFightState::execute, std::make_shared<SwitchToFightState>(game, window, data)))
 {
 	for(auto& computer : m_computerVector)

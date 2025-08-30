@@ -18,3 +18,4 @@ Coin Gold_coin.png
 Sorcerer Sorcerer_Mob.png
 Fireball Fireball.png
 Arrow Arrow.png
+readyButton readyButton.png
